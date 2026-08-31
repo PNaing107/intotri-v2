@@ -1,3 +1,7 @@
+---
+import '../index.css';
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -8,16 +12,7 @@
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro Basics</title>
 	</head>
-	<body>
+	<body class="min-h-full bg-void font-body text-oxygen antialiased">
 		<slot />
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
