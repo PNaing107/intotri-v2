@@ -32,49 +32,58 @@ const mobileSrcset = mobileImages
 const mobileFallback = mobileImages[mobileImages.length - 1];
 ---
 
-<section
-	id="hero"
-	class="relative isolate min-h-dvh overflow-hidden bg-slatefriction"
-	aria-label="IntoTri"
->
-	<div class="absolute inset-0" aria-hidden="true">
-		<div data-hero-media class="h-full w-full origin-center will-change-transform">
-			<picture class="contents">
-				<source
-					media="(min-width: 768px)"
-					srcset={desktopImage.srcSet.attribute}
-					sizes="100vw"
-				/>
-				<img
-					src={mobileFallback.src}
-					srcset={mobileSrcset}
-					sizes="100vw"
-					alt={alt}
-					width={mobileFallback.attributes.width}
-					height={mobileFallback.attributes.height}
-					class="h-full w-full max-w-none object-cover object-[center_30%] md:object-[center_42%]"
-					loading="eager"
-					decoding="sync"
-					fetchpriority="high"
-				/>
-			</picture>
+<section aria-label="IntoTri">
+	<div
+		id="hero"
+		class="relative isolate min-h-dvh overflow-hidden bg-slatefriction"
+	>
+		<div class="absolute inset-0" aria-hidden="true">
+			<div data-hero-media class="h-full w-full origin-center will-change-transform">
+				<picture class="contents">
+					<source
+						media="(min-width: 768px)"
+						srcset={desktopImage.srcSet.attribute}
+						sizes="100vw"
+					/>
+					<img
+						src={mobileFallback.src}
+						srcset={mobileSrcset}
+						sizes="100vw"
+						alt={alt}
+						width={mobileFallback.attributes.width}
+						height={mobileFallback.attributes.height}
+						class="h-full w-full max-w-none object-cover object-[center_30%] md:object-[center_42%]"
+						loading="eager"
+						decoding="sync"
+						fetchpriority="high"
+					/>
+				</picture>
+			</div>
+			<div
+				data-hero-overlay
+				class="absolute inset-0 bg-void pointer-events-none"
+			>
+			</div>
+			<div
+				class="absolute inset-x-0 top-0 h-[45%] bg-gradient-to-b from-void/35 to-transparent md:from-void/15 pointer-events-none"
+			>
+			</div>
 		</div>
-		<div
-			data-hero-overlay
-			class="absolute inset-0 bg-void pointer-events-none"
-		>
-		</div>
-		<div
-			class="absolute inset-x-0 top-0 h-[45%] bg-gradient-to-b from-void/35 to-transparent md:from-void/15 pointer-events-none"
-		>
+
+		<div class="relative z-10 mx-auto max-w-[1600px] px-5 pt-24 md:px-10 md:pt-32">
+			<p class="data-mono text-[10px] font-500 uppercase tracking-[0.22em] text-oxygen/70 md:text-[11px]">
+				<span class="md:hidden">/ Gylly Beach - Falmouth</span>
+				<span class="hidden md:inline">/ St Michael's Mount - Marazion</span>
+			</p>
 		</div>
 	</div>
 
-	<div class="relative z-10 mx-auto max-w-[1600px] px-5 pt-24 md:px-10 md:pt-32">
-		<p class="data-mono text-[10px] font-500 uppercase tracking-[0.22em] text-oxygen/70 md:text-[11px]">
-			<span class="md:hidden">/ Gylly Beach - Falmouth</span>
-			<span class="hidden md:inline">/ St Michael's Mount - Marazion</span>
-		</p>
+	<div class="surface-void px-5 py-16 md:px-10 md:py-24">
+		<div class="mx-auto max-w-[1600px]">
+			<h1 class="relative w-fit max-w-full px-5 py-4 font-archive text-2xl font-700 leading-[1.2] tracking-tighter2 text-oxygen before:pointer-events-none before:absolute before:left-0 before:top-0 before:h-7 before:w-7 before:border-l-2 before:border-t-2 before:border-volt before:content-[''] after:pointer-events-none after:absolute after:bottom-0 after:right-0 after:h-7 after:w-7 after:border-b-2 after:border-r-2 after:border-volt after:content-[''] md:px-6 md:py-5 md:text-4xl md:before:h-8 md:before:w-8 md:after:h-8 md:after:w-8">
+				Multi-sport events and running races based in the South West
+			</h1>
+		</div>
 	</div>
 </section>
 
