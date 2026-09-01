@@ -3,8 +3,7 @@ import { getImage } from 'astro:assets';
 import heroDesktop from '../../assets/kernowman26swim-44.jpg';
 import heroMobile from '../../assets/faltri-102.jpg';
 
-const alt =
-	"Open-water swimmer in a yellow IntoTri cap at St Michael's Mount, Cornwall";
+const alt = 'Open-water swimming with IntoTri in Cornwall';
 
 const mobileWidths = [480, 768, 1080];
 const mobileImages = await Promise.all(
@@ -73,7 +72,8 @@ const mobileFallback = mobileImages[mobileImages.length - 1];
 
 	<div class="relative z-10 mx-auto max-w-[1600px] px-5 pt-24 md:px-10 md:pt-32">
 		<p class="data-mono text-[10px] font-500 uppercase tracking-[0.22em] text-oxygen/70 md:text-[11px]">
-			/ St Michael's Mount - Marazion
+			<span class="md:hidden">/ Gylly Beach - Falmouth</span>
+			<span class="hidden md:inline">/ St Michael's Mount - Marazion</span>
 		</p>
 	</div>
 </section>
