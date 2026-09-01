@@ -1,0 +1,30 @@
+---
+import { Image } from 'astro:assets';
+import bodminJunior from '../../assets/2023_Bodmin_junior.jpg';
+---
+
+<section id="for-everyone" class="bg-blu px-5 py-16 md:px-10 md:py-24">
+	<div class="mx-auto grid max-w-[1600px] items-center gap-8 lg:grid-cols-2 lg:gap-16">
+		<div>
+			<p class="data-mono mb-4 text-[10px] font-500 uppercase tracking-[0.22em] text-white md:text-[11px]">
+				/ For everyone
+			</p>
+			<h2 class="font-archive text-4xl font-900 uppercase leading-[0.86] tracking-tighter2 text-white md:text-6xl">
+				All ages &<br />abilities
+			</h2>
+			<p class="mt-6 max-w-xl font-body text-[15px] leading-[1.6] text-white md:mt-8 md:text-lg">
+				Seahorse to sailfish, plodder to pacer. Bring the family, volunteer with us and let the crowd carry you to the finish line. No one gets left on the beach.
+			</p>
+		</div>
+		<div class="aspect-[16/9] overflow-hidden">
+			<Image
+				src={bodminJunior}
+				alt="A junior athlete high-fives spectators on the run course at Bodmin"
+				widths={[640, 960, 1280, 1600, 2296]}
+				sizes="(min-width: 1640px) 768px, (min-width: 1024px) calc((100vw - 5rem) / 2), calc(100vw - 2.5rem)"
+				class="h-full w-full object-cover object-[42%_center]"
+				loading="lazy"
+			/>
+		</div>
+	</div>
+</section>
