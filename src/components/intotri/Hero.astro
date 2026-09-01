@@ -1,6 +1,36 @@
 ---
-import { Image } from 'astro:assets';
-import heroImage from '../../assets/kernowman26swim-44.jpg';
+import { getImage } from 'astro:assets';
+import heroDesktop from '../../assets/kernowman26swim-44.jpg';
+import heroMobile from '../../assets/faltri-102.jpg';
+
+const alt =
+	"Open-water swimmer in a yellow IntoTri cap at St Michael's Mount, Cornwall";
+
+const mobileWidths = [480, 768, 1080];
+const mobileImages = await Promise.all(
+	mobileWidths.map((width) =>
+		getImage({
+			src: heroMobile,
+			width,
+			height: Math.round(width * (16 / 9)),
+			fit: 'cover',
+			position: 'left',
+			format: 'webp',
+		}),
+	),
+);
+
+const desktopImage = await getImage({
+	src: heroDesktop,
+	width: 2560,
+	widths: [1280, 1920, 2560],
+	format: 'webp',
+});
+
+const mobileSrcset = mobileImages
+	.map((image, index) => `${image.src} ${mobileWidths[index]}w`)
+	.join(', ');
+const mobileFallback = mobileImages[mobileImages.length - 1];
 ---
 
 <section
@@ -10,14 +40,25 @@ import heroImage from '../../assets/kernowman26swim-44.jpg';
 >
 	<div class="absolute inset-0" aria-hidden="true">
 		<div data-hero-media class="h-full w-full origin-center will-change-transform">
-			<Image
-				src={heroImage}
-				alt="Open-water swimmer in a yellow IntoTri cap at St Michael's Mount, Cornwall"
-				class="h-full w-full max-w-none object-cover object-[28%_38%] md:object-[center_42%]"
-				widths={[800, 1280, 1920, 2560]}
-				sizes="100vw"
-				priority
-			/>
+			<picture class="contents">
+				<source
+					media="(min-width: 768px)"
+					srcset={desktopImage.srcSet.attribute}
+					sizes="100vw"
+				/>
+				<img
+					src={mobileFallback.src}
+					srcset={mobileSrcset}
+					sizes="100vw"
+					alt={alt}
+					width={mobileFallback.attributes.width}
+					height={mobileFallback.attributes.height}
+					class="h-full w-full max-w-none object-cover object-[center_30%] md:object-[center_42%]"
+					loading="eager"
+					decoding="sync"
+					fetchpriority="high"
+				/>
+			</picture>
 		</div>
 		<div
 			data-hero-overlay
@@ -25,7 +66,7 @@ import heroImage from '../../assets/kernowman26swim-44.jpg';
 		>
 		</div>
 		<div
-			class="absolute inset-x-0 top-0 h-[45%] bg-gradient-to-b from-void/50 to-transparent md:from-void/15 pointer-events-none"
+			class="absolute inset-x-0 top-0 h-[45%] bg-gradient-to-b from-void/35 to-transparent md:from-void/15 pointer-events-none"
 		>
 		</div>
 	</div>
