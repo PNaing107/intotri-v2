@@ -1,0 +1,30 @@
+---
+import { Image } from 'astro:assets';
+import competitiveImg from '../../assets/competitive-img.png';
+---
+
+<section id="go-competitive" class="bg-volt px-5 pt-16 md:px-10 md:pt-24">
+	<div class="mx-auto grid max-w-[1600px] lg:grid-cols-2 lg:items-end lg:gap-16">
+		<div class="pb-8 lg:pb-24">
+			<p class="data-mono mb-4 text-[10px] font-500 uppercase tracking-[0.22em] text-white md:text-[11px]">
+				/ Race it
+			</p>
+			<h2 class="font-archive text-4xl font-900 uppercase leading-[0.86] tracking-tighter2 text-white md:text-6xl">
+				Go competitive
+			</h2>
+			<p class="mt-6 max-w-xl font-body text-[15px] leading-[1.6] text-white md:mt-8 md:text-lg">
+				Bag a PB and challenge the leaderboard. Race against the clock or beat your friends to the finish line. Fully timed, fully marshalled.
+			</p>
+		</div>
+		<div>
+			<Image
+				src={competitiveImg}
+				alt="Three triathletes — a swimmer, cyclist, and runner — posed with a road bike"
+				widths={[372, 744, 1116]}
+				sizes="(min-width: 448px) 448px, calc(100vw - 2.5rem)"
+				class="mx-auto h-auto w-full max-w-md object-contain lg:ml-auto lg:mr-0"
+				loading="lazy"
+			/>
+		</div>
+	</div>
+</section>
