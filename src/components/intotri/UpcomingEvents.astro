@@ -1,0 +1,196 @@
+---
+type Category = 'senior' | 'junior';
+
+const events: {
+	name: string;
+	format: string;
+	location: string;
+	date: string;
+	category: Category;
+}[] = [
+	{
+		name: 'Newquay Duathlon',
+		format: 'Duathlon',
+		location: 'Newquay',
+		date: '05 Apr 2026',
+		category: 'senior',
+	},
+	{
+		name: 'Falmouth Triathlon',
+		format: 'Super Sprint',
+		location: 'Falmouth',
+		date: '14 Jun 2026',
+		category: 'senior',
+	},
+	{
+		name: 'The Squirrel',
+		format: 'Olympic',
+		location: 'Tavistock',
+		date: '12 Jul 2026',
+		category: 'senior',
+	},
+	{
+		name: 'Bodmin Triathlon',
+		format: 'Sprint',
+		location: 'Bodmin',
+		date: '23 Aug 2026',
+		category: 'senior',
+	},
+	{
+		name: 'Falmouth Aquathlon',
+		format: 'Aquathlon',
+		location: 'Falmouth',
+		date: '14 Jun 2026',
+		category: 'junior',
+	},
+	{
+		name: 'Mini Squirrel',
+		format: 'Triathlon',
+		location: 'Tavistock',
+		date: '12 Jul 2026',
+		category: 'junior',
+	},
+	{
+		name: 'Mini Bodmin',
+		format: 'Triathlon',
+		location: 'Bodmin',
+		date: '23 Aug 2026',
+		category: 'junior',
+	},
+];
+
+const filters: { label: string; value: Category }[] = [
+	{ label: 'Senior', value: 'senior' },
+	{ label: 'Junior', value: 'junior' },
+];
+
+const defaultCategory: Category = 'senior';
+const selectedClasses = ['bg-volt', 'text-white'];
+const idleClasses = ['bg-transparent', 'text-oxygen'];
+---
+
+<section id="upcoming-events" class="surface-void px-5 py-20 md:px-10 md:py-28">
+	<div class="mx-auto max-w-[1600px]">
+		<div class="velocity-line"></div>
+
+		<div class="flex flex-col gap-8 py-10 md:flex-row md:items-end md:justify-between md:gap-10 md:py-12">
+			<div>
+				<p class="data-mono mb-4 text-[10px] font-500 uppercase tracking-[0.22em] text-oxygen/70 md:text-[11px]">
+					/ 02 — Calendar
+				</p>
+				<h2 class="font-archive text-4xl font-900 uppercase leading-[0.86] tracking-tighter2 text-oxygen md:text-6xl">
+					Upcoming Events
+				</h2>
+			</div>
+
+			<div
+				class="inline-flex w-fit self-start border border-[hsl(var(--oxygen)/0.12)] md:self-auto"
+				role="group"
+				aria-label="Filter events by category"
+				data-event-filters
+			>
+				{
+					filters.map(({ label, value }) => {
+						const selected = value === defaultCategory;
+						return (
+							<button
+								type="button"
+								class:list={[
+									'chrono-hover px-5 py-3 font-archive text-xs font-700 uppercase tracking-[0.18em]',
+									selected ? selectedClasses : idleClasses,
+								]}
+								aria-pressed={selected ? 'true' : 'false'}
+								data-filter={value}
+								data-cursor="target"
+							>
+								{label}
+							</button>
+						);
+					})
+				}
+			</div>
+		</div>
+
+		<div class="velocity-line"></div>
+
+		<div class="overflow-x-auto">
+			<table class="w-full min-w-[40rem] border-collapse text-left" aria-label="Upcoming senior events" data-events-table>
+				<thead>
+					<tr class="border-b border-[hsl(var(--oxygen)/0.12)]">
+						<th class="data-mono py-4 pr-6 text-[10px] font-500 uppercase tracking-[0.22em] text-oxygen/70 md:text-[11px]">
+							Event
+						</th>
+						<th class="data-mono py-4 pr-6 text-[10px] font-500 uppercase tracking-[0.22em] text-oxygen/70 md:text-[11px]">
+							Format
+						</th>
+						<th class="data-mono py-4 pr-6 text-[10px] font-500 uppercase tracking-[0.22em] text-oxygen/70 md:text-[11px]">
+							Location
+						</th>
+						<th class="data-mono py-4 text-[10px] font-500 uppercase tracking-[0.22em] text-oxygen/70 md:text-[11px]">
+							Date
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					{
+						events.map((event) => (
+							<tr
+								class="border-b border-[hsl(var(--oxygen)/0.12)] chrono-hover hover:bg-slatefriction"
+								data-category={event.category}
+								hidden={event.category !== defaultCategory}
+							>
+								<td class="py-5 pr-6 font-archive text-sm font-700 uppercase tracking-ultra text-volt md:text-base">
+									{event.name}
+								</td>
+								<td class="data-mono py-5 pr-6 text-[11px] font-500 uppercase tracking-[0.14em] text-oxygen/80">
+									{event.format}
+								</td>
+								<td class="py-5 pr-6 font-body text-sm text-oxygen/80 md:text-base">
+									{event.location}
+								</td>
+								<td class="data-mono py-5 text-[11px] font-500 uppercase tracking-[0.14em] text-oxygen/80">
+									{event.date}
+								</td>
+							</tr>
+						))
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</section>
+
+<script>
+	const section = document.getElementById('upcoming-events');
+	const buttons = section?.querySelectorAll<HTMLButtonElement>('[data-filter]');
+	const rows = section?.querySelectorAll<HTMLTableRowElement>('[data-category]');
+	const table = section?.querySelector<HTMLTableElement>('[data-events-table]');
+
+	const selectedClasses = ['bg-volt', 'text-white'];
+	const idleClasses = ['bg-transparent', 'text-oxygen'];
+
+	function setFilter(category: string) {
+		buttons?.forEach((button) => {
+			const selected = button.dataset.filter === category;
+			button.setAttribute('aria-pressed', String(selected));
+			button.classList.remove(...(selected ? idleClasses : selectedClasses));
+			button.classList.add(...(selected ? selectedClasses : idleClasses));
+		});
+
+		rows?.forEach((row) => {
+			row.hidden = row.dataset.category !== category;
+		});
+
+		if (table) {
+			const label = category === 'junior' ? 'junior' : 'senior';
+			table.setAttribute('aria-label', `Upcoming ${label} events`);
+		}
+	}
+
+	buttons?.forEach((button) => {
+		button.addEventListener('click', () => {
+			const category = button.dataset.filter;
+			if (category) setFilter(category);
+		});
+	});
+</script>
