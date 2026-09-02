@@ -3,17 +3,18 @@ import { Image } from 'astro:assets';
 import volunteerIcon from '../../assets/volunteer_hand_icon_2022.png';
 import roundLogo from '../../assets/intotri-round-logo.png';
 import { FACEBOOK_URL, INSTAGRAM_URL, YOUTUBE_URL } from '../../data/social';
+import { withBase } from '../../lib/paths';
 
 const legalLinks: { label: string; href: string; download?: string }[] = [
-	{ label: 'Contact Us', href: '/contact' },
+	{ label: 'Contact Us', href: withBase('/contact') },
 	{
 		label: 'Terms and Conditions',
-		href: '/documents/terms-and-conditions.docx',
+		href: withBase('/documents/terms-and-conditions.docx'),
 		download: 'terms-and-conditions.docx',
 	},
 	{
 		label: 'COVID-WAIVER',
-		href: '/documents/covid-waiver.pdf',
+		href: withBase('/documents/covid-waiver.pdf'),
 		download: 'covid-waiver.pdf',
 	},
 ];
@@ -29,7 +30,7 @@ const socialLinks = [
 	<div class="mx-auto max-w-[1600px] px-5 py-12 md:px-10 md:py-16 lg:py-20">
 		<div class="flex flex-col items-center gap-12 md:grid md:grid-cols-3 md:items-center md:gap-8">
 			<a
-				href="/join-the-tribe"
+				href={withBase('/join-the-tribe')}
 				class="chrono-hover inline-flex items-center gap-3 md:justify-self-start"
 				data-cursor="target"
 			>
@@ -129,7 +130,7 @@ const socialLinks = [
 			</div>
 
 			<div class="flex flex-col items-center gap-3 text-center md:justify-self-end">
-				<a href="/" class="chrono-hover inline-flex" aria-label="IntoTri home">
+				<a href={withBase('/')} class="chrono-hover inline-flex" aria-label="IntoTri home">
 					<Image
 						src={roundLogo}
 						alt="IntoTri"

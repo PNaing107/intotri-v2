@@ -1,16 +1,17 @@
 ---
 import { Image } from 'astro:assets';
 import logo from '../../assets/intoTri_logo_flag.png';
+import { pathsMatch, withBase } from '../../lib/paths';
 
 const navLinks = [
-	{ label: 'Events', href: '/events' },
-	{ label: 'The TRIbe', href: '/join-the-tribe' },
-	{ label: 'About', href: '/about' },
-	{ label: 'Partners', href: '/partners' },
+	{ label: 'Events', href: withBase('/events') },
+	{ label: 'The TRIbe', href: withBase('/join-the-tribe') },
+	{ label: 'About', href: withBase('/about') },
+	{ label: 'Partners', href: withBase('/partners') },
 ];
 
-const findEventHref = '/#upcoming-events';
-
+const findEventHref = withBase('/#upcoming-events');
+const homeHref = withBase('/');
 const currentPath = Astro.url.pathname;
 ---
 
@@ -27,7 +28,7 @@ const currentPath = Astro.url.pathname;
 	>
 		<div class="mx-auto flex h-16 max-w-[1600px] items-stretch px-5 md:h-[4.5rem] md:px-10">
 			<a
-				href="/"
+				href={homeHref}
 				class="chrono-hover flex shrink-0 items-center self-stretch py-1"
 				aria-label="IntoTri home"
 			>
@@ -49,7 +50,7 @@ const currentPath = Astro.url.pathname;
 							href={href}
 							class:list={[
 								'group relative font-archive text-xs font-600 uppercase tracking-[0.14em] chrono-hover hover:text-volt active:text-volt',
-								currentPath === href ? 'text-volt' : 'text-oxygen',
+								pathsMatch(currentPath, href) ? 'text-volt' : 'text-oxygen',
 							]}
 						>
 							{label}
@@ -142,7 +143,7 @@ const currentPath = Astro.url.pathname;
 							href={href}
 							class:list={[
 								'font-archive py-3 text-sm font-600 uppercase tracking-[0.14em] chrono-hover hover:text-volt active:text-volt',
-								currentPath === href ? 'text-volt' : 'text-oxygen',
+								pathsMatch(currentPath, href) ? 'text-volt' : 'text-oxygen',
 							]}
 						>
 							{label}

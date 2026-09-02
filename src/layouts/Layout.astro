@@ -2,6 +2,7 @@
 import '../index.css';
 import SiteHeader from '../components/intotri/SiteHeader.astro';
 import SiteFooter from '../components/intotri/SiteFooter.astro';
+import { withBase } from '../lib/paths';
 ---
 
 <!doctype html>
@@ -9,8 +10,8 @@ import SiteFooter from '../components/intotri/SiteFooter.astro';
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+		<link rel="icon" href={withBase('/favicon.ico')} />
 		<meta name="generator" content={Astro.generator} />
 		<title>IntoTri</title>
 	</head>
