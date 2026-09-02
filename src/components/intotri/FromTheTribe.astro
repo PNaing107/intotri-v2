@@ -1,0 +1,110 @@
+---
+import { getSocialPosts, INSTAGRAM_URL } from '../../data/social';
+
+const posts = await getSocialPosts(6);
+---
+
+<section id="from-the-tribe" class="surface-void px-5 py-20 md:px-10 md:py-28">
+	<div class="mx-auto max-w-[1600px]">
+		<div class="velocity-line"></div>
+
+		<div class="flex flex-col gap-8 py-10 md:flex-row md:items-end md:justify-between md:gap-10 md:py-12">
+			<div>
+				<p class="data-mono mb-4 text-[10px] font-500 uppercase tracking-[0.22em] text-oxygen/70 md:text-[11px]">
+					/ Community
+				</p>
+				<h2 class="font-archive text-4xl font-900 uppercase leading-[0.86] tracking-tighter2 text-oxygen md:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+					From the TRIbe
+				</h2>
+				<p class="mt-6 max-w-xl font-body text-[15px] leading-[1.6] text-oxygen/80 md:text-lg">
+					Follow the action on our social media channels
+				</p>
+			</div>
+
+			<a
+				href={INSTAGRAM_URL}
+				class="chrono-hover inline-flex w-fit items-center gap-2 bg-volt px-5 py-3 font-archive text-xs font-700 uppercase tracking-[0.18em] text-white hover:bg-volt/90"
+				target="_blank"
+				rel="noopener noreferrer"
+				data-cursor="target"
+			>
+				Follow @intotri
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					width="14"
+					height="14"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					aria-hidden="true"
+				>
+					<path d="M7 7h10v10"></path>
+					<path d="M7 17 17 7"></path>
+				</svg>
+			</a>
+		</div>
+
+		<div class="velocity-line"></div>
+
+		{
+			posts.length > 0 ? (
+				<ul class="mt-10 grid grid-cols-2 gap-3 md:mt-12 md:grid-cols-3 md:gap-4" aria-label="Latest posts from IntoTri">
+					{posts.map((post) => (
+						<li>
+							<a
+								href={post.url}
+								class="group chrono-hover block overflow-hidden bg-slatefriction"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								<div class="relative aspect-square overflow-hidden">
+									<img
+										src={post.image}
+										alt={post.alt}
+										class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.04]"
+										loading="lazy"
+										decoding="async"
+										width="640"
+										height="640"
+									/>
+									<div class="pointer-events-none absolute inset-0 bg-oxygen/0 transition-colors duration-200 group-hover:bg-oxygen/35" />
+									{post.excerpt && (
+										<p class="pointer-events-none absolute inset-x-0 bottom-0 max-md:hidden line-clamp-3 p-4 font-body text-sm leading-snug text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+											{post.excerpt}
+										</p>
+									)}
+								</div>
+								<div class="flex items-center justify-between gap-3 px-3 py-3 md:px-4">
+									<p class="font-archive text-[11px] font-700 uppercase tracking-[0.14em] text-volt">
+										{post.author}
+									</p>
+									{post.date && (
+										<p class="data-mono text-[10px] font-500 uppercase tracking-[0.14em] text-oxygen/70">
+											{post.date}
+										</p>
+									)}
+								</div>
+							</a>
+						</li>
+					))}
+				</ul>
+			) : (
+				<p class="mt-10 font-body text-[15px] text-oxygen/80 md:mt-12 md:text-lg">
+					Latest posts will appear here. In the meantime, follow us on{' '}
+					<a
+						href={INSTAGRAM_URL}
+						class="font-700 text-volt chrono-hover"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						Instagram
+					</a>
+					.
+				</p>
+			)
+		}
+	</div>
+</section>
