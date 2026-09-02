@@ -34,9 +34,9 @@ type JuicerFeed = {
 };
 
 const FEED_URL = 'https://www.juicer.io/api/feeds/intotri';
-const INSTAGRAM_URL = 'https://www.instagram.com/intotri/';
-
-export { INSTAGRAM_URL };
+export const INSTAGRAM_URL = 'https://www.instagram.com/intotri/';
+export const FACEBOOK_URL = 'https://www.facebook.com/intoTRI/';
+export const YOUTUBE_URL = 'https://www.youtube.com/channel/UCaV2aIFRSGBA5JbQcC2kb1w';
 
 function stripHtml(value: string) {
 	return value

@@ -1,0 +1,147 @@
+---
+import { Image } from 'astro:assets';
+import volunteerIcon from '../../assets/volunteer_hand_icon_2022.png';
+import roundLogo from '../../assets/intotri-round-logo.png';
+import { FACEBOOK_URL, INSTAGRAM_URL, YOUTUBE_URL } from '../../data/social';
+
+const legalLinks: { label: string; href: string; download?: string }[] = [
+	{ label: 'Contact Us', href: '/contact' },
+	{
+		label: 'Terms and Conditions',
+		href: '/documents/terms-and-conditions.docx',
+		download: 'terms-and-conditions.docx',
+	},
+	{
+		label: 'COVID-WAIVER',
+		href: '/documents/covid-waiver.pdf',
+		download: 'covid-waiver.pdf',
+	},
+];
+
+const socialLinks = [
+	{ label: 'YouTube', href: YOUTUBE_URL, network: 'youtube' },
+	{ label: 'Instagram', href: INSTAGRAM_URL, network: 'instagram' },
+	{ label: 'Facebook', href: FACEBOOK_URL, network: 'facebook' },
+] as const;
+---
+
+<footer class="surface-void border-t border-[hsl(var(--oxygen)/0.12)]">
+	<div class="mx-auto max-w-[1600px] px-5 py-12 md:px-10 md:py-16 lg:py-20">
+		<div class="flex flex-col items-center gap-12 md:grid md:grid-cols-3 md:items-center md:gap-8">
+			<a
+				href="/join-the-tribe"
+				class="chrono-hover inline-flex items-center gap-3 md:justify-self-start"
+				data-cursor="target"
+			>
+				<Image
+					src={volunteerIcon}
+					alt=""
+					class="h-12 w-auto object-contain md:h-14"
+					widths={[60, 120, 180]}
+					sizes="56px"
+				/>
+				<span class="font-archive text-sm font-700 uppercase tracking-[0.18em] text-oxygen md:text-base">
+					Volunteer
+				</span>
+			</a>
+
+			<div class="flex flex-col items-center text-center md:justify-self-center">
+				<p class="font-archive text-lg font-700 tracking-tight text-oxygen md:text-xl">
+					Connect with the TRIbe
+				</p>
+
+				<ul class="mt-5 flex items-center gap-3" aria-label="Social media">
+					{
+						socialLinks.map(({ label, href, network }) => (
+							<li>
+								<a
+									href={href}
+									class="chrono-hover inline-flex h-9 w-9 items-center justify-center hover:opacity-80"
+									target="_blank"
+									rel="noopener noreferrer"
+									aria-label={label}
+									data-cursor="target"
+								>
+									{network === 'youtube' && (
+										<svg viewBox="0 0 24 24" class="h-8 w-8" aria-hidden="true">
+											<rect x="1" y="5" width="22" height="14" rx="3.5" fill="#FF0000"></rect>
+											<path d="M10 9.25v5.5L15.5 12 10 9.25Z" fill="#fff"></path>
+										</svg>
+									)}
+									{network === 'instagram' && (
+										<svg viewBox="0 0 24 24" class="h-8 w-8" aria-hidden="true">
+											<defs>
+												<radialGradient id="footer-ig-fill" cx="0.3" cy="1.07" r="1.2">
+													<stop offset="0%" stop-color="#fdf497"></stop>
+													<stop offset="45%" stop-color="#fd5949"></stop>
+													<stop offset="70%" stop-color="#d6249f"></stop>
+													<stop offset="100%" stop-color="#285AEB"></stop>
+												</radialGradient>
+											</defs>
+											<rect x="2" y="2" width="20" height="20" rx="5.5" fill="url(#footer-ig-fill)"></rect>
+											<rect
+												x="5.25"
+												y="5.25"
+												width="13.5"
+												height="13.5"
+												rx="4"
+												fill="none"
+												stroke="#fff"
+												stroke-width="1.6"
+											></rect>
+											<circle cx="12" cy="12" r="3.35" fill="none" stroke="#fff" stroke-width="1.6"></circle>
+											<circle cx="16.15" cy="7.85" r="0.95" fill="#fff"></circle>
+										</svg>
+									)}
+									{network === 'facebook' && (
+										<svg viewBox="0 0 24 24" class="h-8 w-8" aria-hidden="true">
+											<circle cx="12" cy="12" r="11" fill="#1877F2"></circle>
+											<path
+												d="M13.4 19.5v-6.3h2.12l.32-2.46h-2.44V9.16c0-.71.2-1.2 1.22-1.2h1.3V5.76c-.23-.03-1-.1-1.9-.1-1.88 0-3.17 1.15-3.17 3.26v1.82H8.6v2.46h2.25v6.3h2.55Z"
+												fill="#fff"
+											></path>
+										</svg>
+									)}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+
+				<ul class="mt-4 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 font-body text-xs text-oxygen/80 md:text-[13px]">
+					{
+						legalLinks.map(({ label, href, download }, index) => (
+							<>
+								{index > 0 && (
+									<li aria-hidden="true" class="text-oxygen/40">
+										•
+									</li>
+								)}
+								<li>
+									<a href={href} class="chrono-hover hover:text-oxygen" download={download}>
+										{label}
+									</a>
+								</li>
+							</>
+						))
+					}
+				</ul>
+			</div>
+
+			<div class="flex flex-col items-center gap-3 text-center md:justify-self-end">
+				<a href="/" class="chrono-hover inline-flex" aria-label="IntoTri home">
+					<Image
+						src={roundLogo}
+						alt="IntoTri"
+						class="h-24 w-24 object-contain md:h-[6.5rem] md:w-[6.5rem]"
+						widths={[100, 200, 300]}
+						sizes="104px"
+					/>
+				</a>
+				<p class="font-body text-xs leading-relaxed text-oxygen/70 md:text-[13px] md:whitespace-nowrap">
+					IntoTRI is a registered charity.<br>Charity Number: 1163918
+				</p>
+			</div>
+		</div>
+	</div>
+</footer>
