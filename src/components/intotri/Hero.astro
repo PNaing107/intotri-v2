@@ -18,12 +18,15 @@ type Slide = {
 	mobile: {
 		image: ImageMetadata;
 		label: string;
+		/** Tailwind text colour utility for the label. */
+		labelColor: string;
 		/** Crop focus when the source is squeezed into the 9:16 mobile frame. */
 		position?: 'left' | 'center' | 'right';
 	};
 	desktop: {
 		image: ImageMetadata;
 		label: string;
+		labelColor: string;
 	};
 };
 
@@ -35,33 +38,61 @@ const slides: Slide[] = [
 		mobile: {
 			image: mobileFalSwimStart,
 			label: 'Gylly Beach - Falmouth',
+			labelColor: 'text-oxygen/70',
 			position: 'left',
 		},
 		desktop: {
 			image: desktopKernowmanSwim,
 			label: "St Michael's Mount - Marazion",
+			labelColor: 'text-oxygen/70',
 		},
 	},
 	{
-		mobile: { image: mobileFalSwim, label: 'Gylly Beach - Falmouth' },
+		mobile: {
+			image: mobileFalSwim,
+			label: 'Gylly Beach - Falmouth',
+			labelColor: 'text-oxygen/70',
+		},
 		desktop: {
 			image: desktopKernowmanRun,
 			label: "St Michael's Mount - Marazion",
+			labelColor: 'text-oxygen/70',
 		},
 	},
 	{
-		mobile: { image: mobileAggieRun, label: 'St Agnes Head - St Agnes' },
-		desktop: { image: desktopKernowmanBeach, label: "Mount's Bay - Marazion" },
+		mobile: {
+			image: mobileAggieRun,
+			label: 'St Agnes',
+			labelColor: 'text-white/70',
+		},
+		desktop: {
+			image: desktopKernowmanBeach,
+			label: "Mount's Bay - Marazion",
+			labelColor: 'text-oxygen/70',
+		},
 	},
 	{
-		mobile: { image: mobileFalRun, label: 'Falmouth' },
-		desktop: { image: desktopFalSwimStart, label: 'Gylly Beach - Falmouth' },
+		mobile: {
+			image: mobileFalRun,
+			label: 'Falmouth',
+			labelColor: 'text-black/70',
+		},
+		desktop: {
+			image: desktopFalSwimStart,
+			label: 'Gylly Beach - Falmouth',
+			labelColor: 'text-oxygen/70',
+		},
 	},
 	{
-		mobile: { image: mobileFalPodium, label: 'Falmouth' },
+		mobile: {
+			image: mobileFalPodium,
+			label: 'Falmouth',
+			labelColor: 'text-white/70',
+		},
 		desktop: {
 			image: desktopKernowmanTransition,
 			label: "St Michael's Mount - Marazion",
+			labelColor: 'text-white/70',
 		},
 	},
 ];
@@ -101,7 +132,9 @@ const heroSlides = await Promise.all(
 			height: mobileFallback.attributes.height,
 			desktopSrcset: desktopImage.srcSet.attribute,
 			mobileLabel: slide.mobile.label,
+			mobileLabelColor: slide.mobile.labelColor,
 			desktopLabel: slide.desktop.label,
+			desktopLabelColor: slide.desktop.labelColor,
 		};
 	}),
 );
@@ -158,7 +191,7 @@ const heroSlides = await Promise.all(
 		</div>
 
 		<div class="relative z-10 mx-auto max-w-[1600px] px-5 pt-24 md:px-10 md:pt-32">
-			<p class="data-mono relative h-4 text-[10px] font-500 uppercase tracking-[0.22em] text-oxygen/70 md:h-5 md:text-[11px]">
+			<p class="data-mono relative h-4 text-[10px] font-500 uppercase tracking-[0.22em] md:h-5 md:text-[11px]">
 				{
 					heroSlides.map((slide, index) => (
 						<span
@@ -166,8 +199,8 @@ const heroSlides = await Promise.all(
 							data-hero-caption
 							data-active={index === 0 ? '' : undefined}
 						>
-							<span class="md:hidden">/ {slide.mobileLabel}</span>
-							<span class="hidden md:inline">/ {slide.desktopLabel}</span>
+							<span class:list={['md:hidden', slide.mobileLabelColor]}>/ {slide.mobileLabel}</span>
+							<span class:list={['hidden md:inline', slide.desktopLabelColor]}>/ {slide.desktopLabel}</span>
 						</span>
 					))
 				}
