@@ -1,63 +1,150 @@
 ---
 import { getImage } from 'astro:assets';
-import heroDesktop from '../../assets/kernowman26swim-44.jpg';
-import heroMobile from '../../assets/faltri-102.jpg';
+import type { ImageMetadata } from 'astro';
 
-const alt = 'Open-water swimming with IntoTri in Cornwall';
+import mobileFalSwimStart from '../../assets/slideshow/mobile/faltri-102.jpg';
+import mobileFalSwim from '../../assets/slideshow/mobile/faltri-095.jpg';
+import mobileAggieRun from '../../assets/slideshow/mobile/Aggie52026-182.jpg';
+import mobileFalRun from '../../assets/slideshow/mobile/faltri-367.jpg';
+import mobileFalPodium from '../../assets/slideshow/mobile/faltri-599.jpg';
+
+import desktopKernowmanSwim from '../../assets/slideshow/desktop/kernowman26swim-44.jpg';
+import desktopKernowmanRun from '../../assets/slideshow/desktop/kernowman26-395.jpg';
+import desktopKernowmanBeach from '../../assets/slideshow/desktop/kernowman26-394.jpg';
+import desktopFalSwimStart from '../../assets/slideshow/desktop/faltri-118.jpg';
+import desktopKernowmanTransition from '../../assets/slideshow/desktop/kernowman26-11.jpg';
+
+type Slide = {
+	mobile: {
+		image: ImageMetadata;
+		label: string;
+		/** Crop focus when the source is squeezed into the 9:16 mobile frame. */
+		position?: 'left' | 'center' | 'right';
+	};
+	desktop: {
+		image: ImageMetadata;
+		label: string;
+	};
+};
+
+const alt = 'IntoTri multi-sport events in Cornwall';
+const slideInterval = 3000;
+
+const slides: Slide[] = [
+	{
+		mobile: {
+			image: mobileFalSwimStart,
+			label: 'Gylly Beach - Falmouth',
+			position: 'left',
+		},
+		desktop: {
+			image: desktopKernowmanSwim,
+			label: "St Michael's Mount - Marazion",
+		},
+	},
+	{
+		mobile: { image: mobileFalSwim, label: 'Gylly Beach - Falmouth' },
+		desktop: {
+			image: desktopKernowmanRun,
+			label: "St Michael's Mount - Marazion",
+		},
+	},
+	{
+		mobile: { image: mobileAggieRun, label: 'St Agnes Head - St Agnes' },
+		desktop: { image: desktopKernowmanBeach, label: "Mount's Bay - Marazion" },
+	},
+	{
+		mobile: { image: mobileFalRun, label: 'Falmouth' },
+		desktop: { image: desktopFalSwimStart, label: 'Gylly Beach - Falmouth' },
+	},
+	{
+		mobile: { image: mobileFalPodium, label: 'Falmouth' },
+		desktop: {
+			image: desktopKernowmanTransition,
+			label: "St Michael's Mount - Marazion",
+		},
+	},
+];
 
 const mobileWidths = [480, 768, 1080];
-const mobileImages = await Promise.all(
-	mobileWidths.map((width) =>
-		getImage({
-			src: heroMobile,
-			width,
-			height: Math.round(width * (16 / 9)),
-			fit: 'cover',
-			position: 'left',
+
+const heroSlides = await Promise.all(
+	slides.map(async (slide) => {
+		const mobileImages = await Promise.all(
+			mobileWidths.map((width) =>
+				getImage({
+					src: slide.mobile.image,
+					width,
+					height: Math.round(width * (16 / 9)),
+					fit: 'cover',
+					position: slide.mobile.position ?? 'center',
+					format: 'webp',
+				}),
+			),
+		);
+
+		const desktopImage = await getImage({
+			src: slide.desktop.image,
+			width: 2560,
+			widths: [1280, 1920, 2560],
 			format: 'webp',
-		}),
-	),
+		});
+
+		const mobileFallback = mobileImages[mobileImages.length - 1];
+
+		return {
+			mobileSrcset: mobileImages
+				.map((image, index) => `${image.src} ${mobileWidths[index]}w`)
+				.join(', '),
+			mobileSrc: mobileFallback.src,
+			width: mobileFallback.attributes.width,
+			height: mobileFallback.attributes.height,
+			desktopSrcset: desktopImage.srcSet.attribute,
+			mobileLabel: slide.mobile.label,
+			desktopLabel: slide.desktop.label,
+		};
+	}),
 );
-
-const desktopImage = await getImage({
-	src: heroDesktop,
-	width: 2560,
-	widths: [1280, 1920, 2560],
-	format: 'webp',
-});
-
-const mobileSrcset = mobileImages
-	.map((image, index) => `${image.src} ${mobileWidths[index]}w`)
-	.join(', ');
-const mobileFallback = mobileImages[mobileImages.length - 1];
 ---
 
 <section aria-label="IntoTri">
 	<div
 		id="hero"
 		class="relative isolate min-h-dvh overflow-hidden bg-slatefriction"
+		data-slide-interval={slideInterval}
 	>
 		<div class="absolute inset-0" aria-hidden="true">
 			<div data-hero-media class="h-full w-full origin-center will-change-transform">
-				<picture class="contents">
-					<source
-						media="(min-width: 768px)"
-						srcset={desktopImage.srcSet.attribute}
-						sizes="100vw"
-					/>
-					<img
-						src={mobileFallback.src}
-						srcset={mobileSrcset}
-						sizes="100vw"
-						alt={alt}
-						width={mobileFallback.attributes.width}
-						height={mobileFallback.attributes.height}
-						class="h-full w-full max-w-none object-cover object-[center_30%] md:object-[center_42%]"
-						loading="eager"
-						decoding="sync"
-						fetchpriority="high"
-					/>
-				</picture>
+				{
+					heroSlides.map((slide, index) => (
+						<picture
+							class="absolute inset-0 block"
+							data-hero-slide
+							data-active={index === 0 ? '' : undefined}
+						>
+							<source
+								media="(min-width: 768px)"
+								srcset={index === 0 ? slide.desktopSrcset : undefined}
+								data-srcset={slide.desktopSrcset}
+								sizes="100vw"
+							/>
+							<img
+								src={index === 0 ? slide.mobileSrc : undefined}
+								srcset={index === 0 ? slide.mobileSrcset : undefined}
+								data-src={slide.mobileSrc}
+								data-srcset={slide.mobileSrcset}
+								sizes="100vw"
+								alt={alt}
+								width={slide.width}
+								height={slide.height}
+								class="h-full w-full max-w-none object-cover object-[center_30%] md:object-[center_42%]"
+								loading={index === 0 ? 'eager' : 'lazy'}
+								decoding={index === 0 ? 'sync' : 'async'}
+								fetchpriority={index === 0 ? 'high' : 'low'}
+							/>
+						</picture>
+					))
+				}
 			</div>
 			<div
 				data-hero-overlay
@@ -71,9 +158,19 @@ const mobileFallback = mobileImages[mobileImages.length - 1];
 		</div>
 
 		<div class="relative z-10 mx-auto max-w-[1600px] px-5 pt-24 md:px-10 md:pt-32">
-			<p class="data-mono text-[10px] font-500 uppercase tracking-[0.22em] text-oxygen/70 md:text-[11px]">
-				<span class="md:hidden">/ Gylly Beach - Falmouth</span>
-				<span class="hidden md:inline">/ St Michael's Mount - Marazion</span>
+			<p class="data-mono relative h-4 text-[10px] font-500 uppercase tracking-[0.22em] text-oxygen/70 md:h-5 md:text-[11px]">
+				{
+					heroSlides.map((slide, index) => (
+						<span
+							class="absolute inset-x-0 top-0"
+							data-hero-caption
+							data-active={index === 0 ? '' : undefined}
+						>
+							<span class="md:hidden">/ {slide.mobileLabel}</span>
+							<span class="hidden md:inline">/ {slide.desktopLabel}</span>
+						</span>
+					))
+				}
 			</p>
 		</div>
 	</div>
@@ -89,7 +186,9 @@ const mobileFallback = mobileImages[mobileImages.length - 1];
 
 <script>
 	const hero = document.getElementById('hero');
-	if (hero && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+	const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+	if (hero && !reduceMotion.matches) {
 		let ticking = false;
 
 		const update = () => {
@@ -112,6 +211,71 @@ const mobileFallback = mobileImages[mobileImages.length - 1];
 
 		update();
 	}
+
+	if (hero && !reduceMotion.matches) {
+		const slides = [...hero.querySelectorAll<HTMLElement>('[data-hero-slide]')];
+		const captions = [
+			...hero.querySelectorAll<HTMLElement>('[data-hero-caption]'),
+		];
+		const interval = Number(hero.dataset.slideInterval) || 6000;
+
+		if (slides.length > 1) {
+			let current = 0;
+			let timer: number | undefined;
+			let visible = true;
+
+			const load = (index: number) => {
+				const slide = slides[index];
+				if (!slide || slide.dataset.loaded !== undefined) return;
+
+				const source = slide.querySelector('source');
+				if (source?.dataset.srcset) source.srcset = source.dataset.srcset;
+
+				const img = slide.querySelector('img');
+				if (img?.dataset.srcset) img.srcset = img.dataset.srcset;
+				if (img?.dataset.src) img.src = img.dataset.src;
+
+				slide.dataset.loaded = '';
+			};
+
+			const show = (index: number) => {
+				slides[current].removeAttribute('data-active');
+				captions[current]?.removeAttribute('data-active');
+				current = index;
+				slides[current].setAttribute('data-active', '');
+				captions[current]?.setAttribute('data-active', '');
+				load((current + 1) % slides.length);
+			};
+
+			const start = () => {
+				if (timer !== undefined) return;
+				timer = window.setInterval(
+					() => show((current + 1) % slides.length),
+					interval,
+				);
+			};
+
+			const stop = () => {
+				if (timer === undefined) return;
+				window.clearInterval(timer);
+				timer = undefined;
+			};
+
+			load(0);
+			load(1);
+
+			document.addEventListener('visibilitychange', () => {
+				if (document.hidden || !visible) stop();
+				else start();
+			});
+
+			new IntersectionObserver((entries) => {
+				visible = entries[0].isIntersecting;
+				if (visible && !document.hidden) start();
+				else stop();
+			}).observe(hero);
+		}
+	}
 </script>
 
 <style>
@@ -127,6 +291,17 @@ const mobileFallback = mobileImages[mobileImages.length - 1];
 		opacity: calc(var(--hero-p) * 0.5);
 	}
 
+	#hero [data-hero-slide],
+	#hero [data-hero-caption] {
+		opacity: 0;
+		transition: opacity 1200ms ease-in-out;
+	}
+
+	#hero [data-hero-slide][data-active],
+	#hero [data-hero-caption][data-active] {
+		opacity: 1;
+	}
+
 	@media (prefers-reduced-motion: reduce) {
 		#hero [data-hero-media] {
 			transform: none;
@@ -134,6 +309,11 @@ const mobileFallback = mobileImages[mobileImages.length - 1];
 
 		#hero [data-hero-overlay] {
 			opacity: 0;
+		}
+
+		#hero [data-hero-slide],
+		#hero [data-hero-caption] {
+			transition: none;
 		}
 	}
 </style>
