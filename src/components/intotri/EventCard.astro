@@ -1,0 +1,180 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import type { Event } from '../../data/events';
+import { withBase } from '../../lib/paths';
+
+interface Props {
+	event: Event;
+	/** Entry link. Defaults to the event's own page. */
+	href?: string;
+	/** Overrides the date-derived entry state. */
+	status?: 'open' | 'closed';
+	/** Overrides the tag in the top-left corner, e.g. a series name. */
+	tag?: string;
+	/** `contain` letterboxes the thumbnail instead of filling the frame. */
+	fit?: 'cover' | 'contain';
+	class?: string;
+}
+
+const { event, href, status, tag, fit = 'cover', class: className } = Astro.props;
+
+const thumbnails = import.meta.glob<ImageMetadata>(
+	'/src/assets/event_logos/*.{png,jpg,jpeg,webp,avif}',
+	{ import: 'default', eager: true },
+);
+const thumbnail = thumbnails[`/src/${event.eventThumbnail}`];
+const widths = thumbnail
+	? [320, 640, 960].filter((width) => width <= thumbnail.width)
+	: [];
+
+const [title, subtitle] = event.name.split('|').map((part) => part.trim());
+
+const date = new Date(`${event.date}T00:00:00Z`);
+const day = date.toLocaleDateString('en-GB', { day: '2-digit', timeZone: 'UTC' });
+const monthYear = date.toLocaleDateString('en-GB', {
+	month: 'short',
+	year: 'numeric',
+	timeZone: 'UTC',
+});
+
+const entriesOpen = status ? status === 'open' : date.getTime() >= Date.now();
+const tagLabel = tag ?? (event.category === 'junior' ? 'Junior' : 'Senior');
+const entryHref = href ?? withBase(`/events/${event.slug}`);
+const hairline = 'border-[hsl(var(--oxygen)/0.12)]';
+---
+
+<article
+	class:list={[
+		'group surface-void flex h-full flex-col border',
+		hairline,
+		className,
+	]}
+>
+	<div class="relative aspect-[4/3] overflow-hidden bg-slatefriction">
+		{
+			thumbnail && (
+				<Image
+					src={thumbnail}
+					alt=""
+					widths={widths.length ? widths : [thumbnail.width]}
+					sizes="(min-width: 1280px) 380px, (min-width: 640px) 45vw, calc(100vw - 2.5rem)"
+					loading="lazy"
+					class:list={[
+						'chrono-hover h-full w-full',
+						fit === 'contain'
+							? 'object-contain p-6'
+							: 'object-cover group-hover:scale-[1.02]',
+					]}
+				/>
+			)
+		}
+
+		<p
+			class:list={[
+				'data-mono absolute left-0 top-0 border bg-void px-3 py-2 text-[10px] font-500 uppercase tracking-[0.22em] text-oxygen',
+				hairline,
+			]}
+		>
+			{tagLabel}
+		</p>
+
+		<p
+			class:list={[
+				'data-mono absolute right-0 top-0 px-3 py-2 text-[10px] font-500 uppercase tracking-[0.22em] text-white',
+				entriesOpen ? 'bg-blu' : 'bg-volt',
+			]}
+		>
+			{entriesOpen ? 'Open' : 'Closed'}
+		</p>
+	</div>
+
+	<div class:list={['flex items-center gap-6 border-t px-5 py-4', hairline]}>
+		<time datetime={event.date} class="data-mono flex flex-col text-oxygen">
+			<span class="text-xl font-700 leading-none">{day}</span>
+			<span class="mt-1 text-[10px] font-500 uppercase tracking-[0.22em] text-oxygen/60">
+				{monthYear}
+			</span>
+		</time>
+
+		<p class="data-mono flex items-center gap-2 text-[11px] font-500 uppercase tracking-[0.18em] text-blu">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="13"
+				height="13"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				class="shrink-0"
+				aria-hidden="true"
+			>
+				<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+				<circle cx="12" cy="10" r="3"></circle>
+			</svg>
+			{event.location}
+		</p>
+	</div>
+
+	<div class:list={['border-t px-5 pb-5 pt-6', hairline]}>
+		<h3
+			class="font-archive text-xl font-900 uppercase leading-[0.9] tracking-tighter2 text-oxygen md:text-2xl"
+		>
+			{title}
+		</h3>
+
+		{
+			subtitle && (
+				<p class="data-mono mt-2 text-[11px] font-500 uppercase tracking-[0.18em] text-volt">
+					{subtitle}
+				</p>
+			)
+		}
+
+		<p class="data-mono mt-4 text-[11px] font-500 uppercase tracking-[0.18em] text-oxygen/70">
+			{event.format}
+		</p>
+	</div>
+
+	<div class="mt-auto px-5 pb-5">
+		{
+			entriesOpen ? (
+				<a
+					href={entryHref}
+					class="chrono-hover flex items-center justify-center gap-2 bg-volt px-5 py-4 font-archive text-xs font-700 uppercase tracking-[0.18em] text-white hover:bg-volt/90"
+					data-cursor="target"
+					aria-label={`Sign up for ${event.name}`}
+				>
+					Sign up
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="14"
+						height="14"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						class="shrink-0 transition-transform duration-120 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+						aria-hidden="true"
+					>
+						<path d="M7 7h10v10" />
+						<path d="M7 17 17 7" />
+					</svg>
+				</a>
+			) : (
+				<p
+					class:list={[
+						'flex items-center justify-center border px-5 py-4 font-archive text-xs font-700 uppercase tracking-[0.18em] text-oxygen/50',
+						hairline,
+					]}
+				>
+					Entries closed
+				</p>
+			)
+		}
+	</div>
+</article>
