@@ -3,6 +3,12 @@ import '../index.css';
 import SiteHeader from '../components/intotri/SiteHeader.astro';
 import SiteFooter from '../components/intotri/SiteFooter.astro';
 import { withBase } from '../lib/paths';
+
+interface Props {
+	title?: string;
+}
+
+const { title = 'IntoTri' } = Astro.props;
 ---
 
 <!doctype html>
@@ -13,7 +19,7 @@ import { withBase } from '../lib/paths';
 		<link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
 		<link rel="icon" href={withBase('/favicon.ico')} />
 		<meta name="generator" content={Astro.generator} />
-		<title>IntoTri</title>
+		<title>{title}</title>
 	</head>
 	<body class="min-h-full bg-void font-body text-oxygen antialiased">
 		<SiteHeader />
