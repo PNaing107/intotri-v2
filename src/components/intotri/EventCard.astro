@@ -14,10 +14,12 @@ interface Props {
 	tag?: string;
 	/** `contain` letterboxes the thumbnail instead of filling the frame. */
 	fit?: 'cover' | 'contain';
+	/** Hides the card without removing it from the document. */
+	hidden?: boolean;
 	class?: string;
 }
 
-const { event, href, status, tag, fit = 'cover', class: className } = Astro.props;
+const { event, href, status, tag, fit = 'cover', hidden = false, class: className } = Astro.props;
 
 const thumbnails = import.meta.glob<ImageMetadata>(
 	'/src/assets/event_logos/*.{png,jpg,jpeg,webp,avif}',
@@ -50,6 +52,9 @@ const hairline = 'border-[hsl(var(--oxygen)/0.12)]';
 		hairline,
 		className,
 	]}
+	data-category={event.category}
+	data-date={event.date}
+	hidden={hidden}
 >
 	<div class="relative aspect-[4/3] overflow-hidden bg-slatefriction">
 		{

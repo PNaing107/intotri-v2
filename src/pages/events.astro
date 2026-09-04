@@ -2,13 +2,24 @@
 import Layout from '../layouts/Layout.astro';
 import EventCard from '../components/intotri/EventCard.astro';
 import { events } from '../data/events';
+import { isPastEvent } from '../lib/event-date';
 
 const calendar = [...events].sort((a, b) => a.date.localeCompare(b.date));
+
+const filters = [
+	{ label: 'All', value: 'all' },
+	{ label: 'Senior', value: 'senior' },
+	{ label: 'Junior', value: 'junior' },
+] as const;
+
+const defaultFilter = 'all';
+const selectedClasses = ['bg-volt', 'text-white'];
+const idleClasses = ['bg-transparent', 'text-oxygen'];
 ---
 
 <Layout title="Events | IntoTri">
 	<main>
-		<section class="surface-void px-5 pb-20 pt-28 md:px-10 md:pb-28 md:pt-36">
+		<section id="event-calendar" class="surface-void px-5 pb-20 pt-28 md:px-10 md:pb-28 md:pt-36">
 			<div class="mx-auto max-w-[1600px]">
 				<div class="velocity-line"></div>
 
@@ -19,17 +30,159 @@ const calendar = [...events].sort((a, b) => a.date.localeCompare(b.date));
 					<h1 class="font-archive text-4xl font-900 uppercase leading-[0.86] tracking-tighter2 text-oxygen md:text-6xl">
 						Events
 					</h1>
-					<p class="mt-6 max-w-xl font-body text-[15px] leading-[1.6] text-oxygen/80 md:mt-8 md:text-lg">
-						Every IntoTri race for the season — senior and junior, swim to trail run. Pick your start line.
-					</p>
+					<div
+						class="mt-6 inline-flex w-fit border border-[hsl(var(--oxygen)/0.12)] md:mt-8"
+						role="group"
+						aria-label="Filter events by category"
+						data-event-filters
+					>
+						{
+							filters.map(({ label, value }) => {
+								const selected = value === defaultFilter;
+								return (
+									<button
+										type="button"
+										class:list={[
+											'chrono-hover px-5 py-3 font-archive text-xs font-700 uppercase tracking-[0.18em]',
+											selected ? selectedClasses : idleClasses,
+										]}
+										aria-pressed={selected ? 'true' : 'false'}
+										data-filter={value}
+										data-cursor="target"
+									>
+										{label}
+									</button>
+								);
+							})
+						}
+					</div>
+					<button
+						type="button"
+						class="group mt-5 flex w-fit items-center gap-3"
+						role="switch"
+						aria-checked="false"
+						data-past-toggle
+						data-cursor="target"
+					>
+						<span
+							class="relative h-6 w-10 shrink-0 rounded-full border-2 border-[hsl(var(--oxygen)/0.35)] bg-transparent chrono-hover group-aria-checked:border-volt group-aria-checked:bg-volt"
+						>
+							<span
+								class="absolute left-0.5 top-0.5 h-4 w-4 rounded-full bg-oxygen chrono-hover group-aria-checked:translate-x-4 group-aria-checked:bg-white"
+							></span>
+						</span>
+						<span class="font-archive text-xs font-700 uppercase tracking-[0.18em] text-oxygen" data-past-label>
+							Show past events
+						</span>
+					</button>
 				</div>
 
 				<div class="velocity-line"></div>
 
-				<div class="grid gap-6 pt-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:pt-12">
-					{calendar.map((event) => <EventCard event={event} />)}
+				<div class="pt-10 md:pt-12">
+					<div
+						class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+						aria-label="Upcoming IntoTri races"
+						data-events-grid
+					>
+						{
+							calendar.map((event) => (
+								<EventCard event={event} hidden={isPastEvent(event.date)} />
+							))
+						}
+					</div>
+					<p
+						class="data-mono text-[11px] font-500 uppercase tracking-[0.18em] text-oxygen/60"
+						data-empty-state
+						hidden={calendar.some((event) => !isPastEvent(event.date))}
+					>
+						No upcoming events in this category.
+					</p>
 				</div>
 			</div>
 		</section>
 	</main>
 </Layout>
+
+<script>
+	import { isPastEvent } from '../lib/event-date';
+
+	const section = document.getElementById('event-calendar');
+	const buttons = section?.querySelectorAll<HTMLButtonElement>('[data-filter]');
+	const cards = section?.querySelectorAll<HTMLElement>('[data-category]');
+	const grid = section?.querySelector<HTMLElement>('[data-events-grid]');
+	const pastToggle = section?.querySelector<HTMLButtonElement>('[data-past-toggle]');
+	const pastLabel = section?.querySelector<HTMLElement>('[data-past-label]');
+	const emptyState = section?.querySelector<HTMLElement>('[data-empty-state]');
+
+	const selectedClasses = ['bg-volt', 'text-white'];
+	const idleClasses = ['bg-transparent', 'text-oxygen'];
+
+	function selectedCategory() {
+		return (
+			[...(buttons ?? [])].find((button) => button.getAttribute('aria-pressed') === 'true')
+				?.dataset.filter ?? 'all'
+		);
+	}
+
+	function showingPast() {
+		return pastToggle?.getAttribute('aria-checked') === 'true';
+	}
+
+	function applyFilters() {
+		const category = selectedCategory();
+		const includePast = showingPast();
+
+		buttons?.forEach((button) => {
+			const selected = button.dataset.filter === category;
+			button.setAttribute('aria-pressed', String(selected));
+			button.classList.remove(...(selected ? idleClasses : selectedClasses));
+			button.classList.add(...(selected ? selectedClasses : idleClasses));
+		});
+
+		let visible = 0;
+		cards?.forEach((card) => {
+			const matchesCategory = category === 'all' || card.dataset.category === category;
+			const matchesDate = includePast || !isPastEvent(card.dataset.date ?? '');
+			const hide = !matchesCategory || !matchesDate;
+			card.hidden = hide;
+			if (!hide) visible += 1;
+		});
+
+		if (pastLabel) {
+			pastLabel.textContent = includePast ? 'Hide past events' : 'Show past events';
+		}
+
+		if (emptyState) {
+			emptyState.hidden = visible > 0;
+			emptyState.textContent = includePast
+				? 'No events in this category.'
+				: 'No upcoming events in this category.';
+		}
+
+		if (grid) {
+			grid.hidden = visible === 0;
+			const audience =
+				category === 'junior' ? 'junior' : category === 'senior' ? 'senior' : '';
+			const when = includePast ? '' : 'Upcoming ';
+			const who = audience ? `${audience} ` : '';
+			grid.setAttribute('aria-label', `${when}${who}IntoTri races`.trim());
+		}
+	}
+
+	buttons?.forEach((button) => {
+		button.addEventListener('click', () => {
+			buttons.forEach((other) => {
+				other.setAttribute('aria-pressed', String(other === button));
+			});
+			applyFilters();
+		});
+	});
+
+	pastToggle?.addEventListener('click', () => {
+		pastToggle.setAttribute('aria-checked', String(!showingPast()));
+		applyFilters();
+	});
+
+	applyFilters();
+</script>
