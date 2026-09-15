@@ -14,12 +14,14 @@ const navLinks = [
 const findEventHref = withBase('/#upcoming-events');
 const homeHref = withBase('/');
 const currentPath = Astro.url.pathname;
+const invertOnHero = pathsMatch(currentPath, withBase('/partners'));
 ---
 
 <header
 	id="site-header"
 	class="fixed inset-x-0 top-0 z-50 chrono-transition"
 	data-scrolled="false"
+	data-invert={invertOnHero ? 'true' : 'false'}
 >
 	<div class="h-1 bg-volt" aria-hidden="true"></div>
 
@@ -237,5 +239,11 @@ const currentPath = Astro.url.pathname;
 	#site-header[data-scrolled='false'] [data-header-bar] a:not([class*='bg-volt']),
 	#site-header[data-scrolled='false'] [data-header-bar] button {
 		text-shadow: 0 1px 8px hsl(var(--void) / 0.65);
+	}
+
+	#site-header[data-invert='true'][data-scrolled='false'] [data-header-bar] a:not([class*='bg-volt']):not(.text-volt),
+	#site-header[data-invert='true'][data-scrolled='false'] [data-header-bar] button {
+		color: hsl(var(--void));
+		text-shadow: none;
 	}
 </style>

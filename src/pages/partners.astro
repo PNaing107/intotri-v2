@@ -1,0 +1,33 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PartnersHero from '../components/intotri/PartnersHero.astro';
+import PartnerCard from '../components/intotri/PartnerCard.astro';
+import { partners } from '../data/partners';
+---
+
+<Layout title="Partners | IntoTri">
+	<main>
+		<PartnersHero />
+
+		<section id="partners" class="surface-void px-5 pb-20 pt-16 md:px-10 md:pb-28 md:pt-24">
+			<div class="mx-auto max-w-[1600px]">
+				<div class="velocity-line"></div>
+
+				<div class="py-10 md:py-12">
+					<p class="data-mono mb-4 text-[10px] font-500 uppercase tracking-[0.22em] text-oxygen/70 md:text-[11px]">
+						/ 01 — Sponsors
+					</p>
+					<p class="max-w-2xl font-body text-[15px] leading-[1.6] text-oxygen/80 md:text-lg">
+						The local businesses that help keep IntoTri open to all. Their support makes grassroots triathlon possible across Cornwall.
+					</p>
+				</div>
+
+				<div class="velocity-line"></div>
+
+				<div class="flex flex-col gap-6 pt-10 md:pt-12" aria-label="IntoTri partners">
+					{partners.map((partner) => <PartnerCard partner={partner} />)}
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>
