@@ -1,6 +1,8 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import AboutHero from '../components/intotri/AboutHero.astro';
+import teamPhoto from '../assets/intotri-team.jpg';
 ---
 
 <Layout title="About | IntoTri">
@@ -21,6 +23,16 @@ import AboutHero from '../components/intotri/AboutHero.astro';
 					<h2 class="mt-6 max-w-3xl font-body text-[15px] leading-[1.6] text-oxygen/80 md:mt-8 md:text-lg">
 						Open to all, affordable for everyone. Help intoTRI change the triathlon landscape and show our communities how being active leads to a healthier, happier life.
 					</h2>
+					<div class="mt-8 w-fit max-w-full md:mt-12" style={`max-width: min(100%, ${teamPhoto.width}px)`}>
+						<Image
+							src={teamPhoto}
+							alt="The IntoTri team together at a race, three athletes in kit with medals standing between two supporters"
+							widths={[640, 960, 1280, 1600, 1920, 2560].filter((width) => width <= teamPhoto.width)}
+							sizes={`(min-width: 768px) min(calc(100vw - 5rem), ${teamPhoto.width}px), min(calc(100vw - 2.5rem), ${teamPhoto.width}px)`}
+							class="h-auto w-full max-w-full"
+							loading="lazy"
+						/>
+					</div>
 				</div>
 
 				<div class="velocity-line"></div>
