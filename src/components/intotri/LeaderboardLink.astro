@@ -1,0 +1,42 @@
+---
+import type { Leaderboard } from '../../data/leaderboards';
+import { withBase } from '../../lib/paths';
+
+interface Props {
+	leaderboard: Leaderboard;
+}
+
+const { leaderboard } = Astro.props;
+const href = withBase(leaderboard.url.trim());
+const isRanking = leaderboard.type === 'ranking';
+---
+
+<a
+	href={href}
+	target="_blank"
+	rel="noopener noreferrer"
+	class:list={[
+		'group chrono-hover inline-flex w-fit items-center gap-2 font-archive text-base font-700 uppercase tracking-[0.14em] md:text-lg',
+		isRanking ? 'text-volt hover:text-volt/80' : 'text-blu hover:text-blu/80',
+	]}
+	data-cursor="target"
+	aria-label={`Open ${leaderboard.name} PDF (opens in a new tab)`}
+>
+	{leaderboard.name}
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		width="14"
+		height="14"
+		viewBox="0 0 24 24"
+		fill="none"
+		stroke="currentColor"
+		stroke-width="2"
+		stroke-linecap="round"
+		stroke-linejoin="round"
+		class="shrink-0 transition-transform duration-120 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+		aria-hidden="true"
+	>
+		<path d="M7 7h10v10" />
+		<path d="M7 17 17 7" />
+	</svg>
+</a>
