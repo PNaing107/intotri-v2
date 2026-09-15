@@ -1,9 +1,13 @@
 ---
 import { withBase } from '../../lib/paths';
+import SeriesModal from './SeriesModal.astro';
+
+const itemClass =
+	'group chrono-hover inline-flex items-center justify-center gap-2 bg-volt px-4 py-3 font-archive text-xs font-700 uppercase tracking-[0.18em] text-white hover:bg-volt/90 md:px-5';
 
 const links = [
 	{ label: 'Events', href: withBase('/events') },
-	{ label: 'The Series', href: withBase('/series') },
+	{ label: 'The Series', modal: 'series' as const },
 	{ label: 'Past Results', href: withBase('/results') },
 	{ label: 'Leaderboard', href: withBase('/leaderboard') },
 	{ label: 'Volunteer', href: withBase('/volunteer') },
@@ -18,32 +22,53 @@ const links = [
 			aria-label="Explore IntoTri"
 		>
 			{
-				links.map(({ label, href }) => (
-					<a
-						href={href}
-						class="group chrono-hover inline-flex items-center justify-center gap-2 bg-volt px-4 py-3 font-archive text-xs font-700 uppercase tracking-[0.18em] text-white hover:bg-volt/90 md:px-5"
-						data-cursor="target"
-					>
-						<span class="whitespace-nowrap">{label}</span>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="14"
-							height="14"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							class="shrink-0 transition-transform duration-120 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-							aria-hidden="true"
+				links.map((link) => {
+					const inner = (
+						<>
+							<span class="whitespace-nowrap">{link.label}</span>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="14"
+								height="14"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								class="shrink-0 transition-transform duration-120 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+								aria-hidden="true"
+							>
+								<path d="M7 7h10v10"></path>
+								<path d="M7 17 17 7"></path>
+							</svg>
+						</>
+					);
+
+					if ('href' in link) {
+						return (
+							<a href={link.href} class={itemClass} data-cursor="target">
+								{inner}
+							</a>
+						);
+					}
+
+					return (
+						<button
+							type="button"
+							class:list={[itemClass, 'border-0']}
+							data-cursor="target"
+							data-series-modal-open
+							aria-haspopup="dialog"
+							aria-controls="series-modal"
 						>
-							<path d="M7 7h10v10"></path>
-							<path d="M7 17 17 7"></path>
-						</svg>
-					</a>
-				))
+							{inner}
+						</button>
+					);
+				})
 			}
 		</nav>
 	</div>
 </section>
+
+<SeriesModal />

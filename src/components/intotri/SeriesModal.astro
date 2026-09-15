@@ -1,0 +1,121 @@
+---
+import { seriesCalendar, seriesHeading, seriesIntro } from '../../data/series';
+---
+
+<dialog
+	id="series-modal"
+	class="series-modal w-[calc(100%-2.5rem)] max-w-3xl border-0 bg-transparent p-0 text-oxygen"
+	aria-labelledby="series-modal-title"
+>
+	<div
+		class="surface-void relative max-h-[min(90vh,52rem)] overflow-y-auto overscroll-contain border border-[hsl(var(--oxygen)/0.12)] shadow-[0_24px_80px_hsl(var(--oxygen)/0.18)]"
+	>
+		<div class="sticky top-0 z-10 bg-void">
+			<div class="h-1 bg-volt" aria-hidden="true"></div>
+			<div class="flex justify-end px-3 pt-3 md:px-4 md:pt-4">
+				<button
+					type="button"
+					class="chrono-hover inline-flex h-10 w-10 items-center justify-center border border-[hsl(var(--oxygen)/0.12)] text-oxygen hover:border-volt hover:text-volt"
+					aria-label="Close series details"
+					data-series-modal-close
+					data-cursor="target"
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="18"
+						height="18"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"
+					>
+						<path d="M18 6 6 18"></path>
+						<path d="m6 6 12 12"></path>
+					</svg>
+				</button>
+			</div>
+		</div>
+
+		<div class="px-5 pb-8 pt-1 md:px-10 md:pb-10">
+			<h2
+				id="series-modal-title"
+				class="font-archive text-xl font-700 uppercase tracking-[0.08em] text-volt md:text-2xl"
+			>
+				{seriesHeading}
+			</h2>
+
+			{
+				seriesIntro.map((paragraph) => (
+					<p class="mt-4 font-body text-[15px] leading-[1.6] text-oxygen/80 md:text-base">
+						{paragraph}
+					</p>
+				))
+			}
+
+			<h3 class="mt-8 font-archive text-base font-700 uppercase tracking-[0.14em] text-oxygen md:text-lg">
+				Event Calendar
+			</h3>
+
+			<ul class="mt-4 list-disc space-y-3 pl-5 font-body text-[15px] leading-[1.6] text-oxygen/80 md:text-base">
+				{
+					seriesCalendar.map(({ date, location, name, description }) => (
+						<li>
+							<span class="font-700 text-volt">
+								{date}, {location}:
+							</span>
+							<span class="font-700 text-blu"> {name}</span>
+							{' – '}
+							{description}
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</div>
+</dialog>
+
+<script>
+	const dialog = document.getElementById('series-modal') as HTMLDialogElement | null;
+	const openers = document.querySelectorAll<HTMLElement>('[data-series-modal-open]');
+	const closers = dialog?.querySelectorAll<HTMLElement>('[data-series-modal-close]');
+
+	function openModal() {
+		dialog?.showModal();
+	}
+
+	function closeModal() {
+		dialog?.close();
+	}
+
+	openers.forEach((opener) => {
+		opener.addEventListener('click', openModal);
+	});
+
+	closers?.forEach((closer) => {
+		closer.addEventListener('click', closeModal);
+	});
+
+	dialog?.addEventListener('click', (event) => {
+		if (event.target === dialog) closeModal();
+	});
+</script>
+
+<style>
+	.series-modal {
+		margin: auto;
+	}
+
+	.series-modal::backdrop {
+		background: hsl(var(--oxygen) / 0.45);
+		backdrop-filter: blur(4px);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.series-modal::backdrop {
+			backdrop-filter: none;
+		}
+	}
+</style>
