@@ -23,7 +23,7 @@ import teamPhoto from '../assets/intotri-team.jpg';
 					<h2 class="mt-6 max-w-3xl font-body text-[15px] leading-[1.6] text-oxygen/80 md:mt-8 md:text-lg">
 						Open to all, affordable for everyone. Help intoTRI change the triathlon landscape and show our communities how being active leads to a healthier, happier life.
 					</h2>
-					<div class="mt-8 w-fit max-w-full md:mt-12" style={`max-width: min(100%, ${teamPhoto.width}px)`}>
+					<figure class="mt-8 w-fit max-w-full md:mt-12" style={`max-width: min(100%, ${teamPhoto.width}px)`}>
 						<Image
 							src={teamPhoto}
 							alt="The IntoTri team together at a race, three athletes in kit with medals standing between two supporters"
@@ -32,7 +32,10 @@ import teamPhoto from '../assets/intotri-team.jpg';
 							class="h-auto w-full max-w-full"
 							loading="lazy"
 						/>
-					</div>
+						<figcaption class="mt-3 font-body text-[13px] leading-[1.6] text-oxygen/70 md:mt-4 md:text-[15px]">
+							intoTRI is a registered charity, Charity Number 1163918
+						</figcaption>
+					</figure>
 				</div>
 
 				<div class="velocity-line"></div>
