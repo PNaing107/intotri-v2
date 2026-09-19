@@ -1,0 +1,18 @@
+---
+import { Image } from 'astro:assets';
+import kitchener from '../../assets/lord_kitchener.png';
+---
+
+<figure class="grid items-center gap-8 lg:grid-cols-2 lg:gap-16">
+	<Image
+		src={kitchener}
+		alt="Lord Kitchener pointing at the viewer beneath the slogan intoTri Needs You, Volunteer Now"
+		widths={[400, 640, 800, 1200]}
+		sizes="(min-width: 1024px) 640px, calc(100vw - 2.5rem)"
+		class="mx-auto h-auto w-full max-w-md object-contain"
+		loading="lazy"
+	/>
+	<figcaption class="max-w-xl font-body text-[15px] leading-[1.6] text-oxygen/80 md:text-lg">
+		Races can only run due to the generosity provided by volunteers, please consider helping out, or ask a family member or friend to volunteer on your behalf. Whether that be cheering out on the course, handing out race numbers, or helping to pack down after the event, no job is too big or small. All help is hugely appreciated! Please sign up via the button at the top of this page if you are able to help out, pick whichever role suits you best.
+	</figcaption>
+</figure>
