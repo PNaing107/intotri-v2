@@ -1,0 +1,45 @@
+---
+import type { Event } from '../../data/events';
+
+interface Props {
+	event: Event;
+}
+
+const { event } = Astro.props;
+
+const date = new Date(`${event.date}T00:00:00Z`);
+const formattedDate = date.toLocaleDateString('en-GB', {
+	day: '2-digit',
+	month: 'long',
+	year: 'numeric',
+	timeZone: 'UTC',
+});
+
+const hairline = 'border-[hsl(var(--oxygen)/0.12)]';
+---
+
+<div class:list={['mt-6 flex items-center gap-6 border-t py-4 md:mt-8', hairline]}>
+	<time datetime={event.date} class="data-mono text-xl font-700 leading-none text-oxygen">
+		{formattedDate}
+	</time>
+
+	<a href={event.googleMapsUrl} target="_blank" class="data-mono ml-auto flex items-center gap-2 text-[11px] font-500 uppercase tracking-[0.18em] text-blu">
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			width="13"
+			height="13"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			class="shrink-0"
+			aria-hidden="true"
+		>
+			<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+			<circle cx="12" cy="10" r="3"></circle>
+		</svg>
+		{event.address}
+	</a>
+</div>
