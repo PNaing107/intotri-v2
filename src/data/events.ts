@@ -8,6 +8,8 @@ export type Event = {
 	eventThumbnail: string;
 	format: string;
 	location: string;
+	address: string;
+	googleMapsUrl: string;
 	category: EventCategory;
 };
 
@@ -20,6 +22,8 @@ export const events: Event[] = [
 	  "eventThumbnail": "assets/event_logos/an-res-white.png",
 	  "format": "running",
 	  "location": "Helston",
+	  "address": "The Old Cattle Market, Helston, TR13 0SR",
+	  "googleMapsUrl": "https://maps.app.goo.gl/WsTsM49qMwxuickY9",
 	  "category": "senior",
 	},
 	{
@@ -30,6 +34,8 @@ export const events: Event[] = [
 	  "eventThumbnail": "assets/event_logos/run_falmouth.png",
 	  "format": "running",
 	  "location": "Falmouth",
+	  "address": "Princess Pavilion, Falmouth, TR11 4AR",
+	  "googleMapsUrl": "https://maps.app.goo.gl/j4aGS9Q22b1gD2tC8",
 	  "category": "senior",
 	},
 	// {
@@ -50,6 +56,8 @@ export const events: Event[] = [
 		"eventThumbnail": "assets/event_logos/bhicks.jpg",
 		"format": "duathlon (run - bike - run)",
 		"location": "Par",
+		"address": " Par Athletics Track, PL24 2PB",
+		"googleMapsUrl": "https://maps.app.goo.gl/8qveZyRoHWi8CqUo7",
 		"category": "senior",
 	},
 	{
@@ -60,6 +68,8 @@ export const events: Event[] = [
 		"eventThumbnail": "assets/event_logos/bhicks.jpg",
 		"format": "duathlon (run - bike - run)",
 		"location": "Par",
+		"address": " Par Athletics Track, PL24 2PB",
+		"googleMapsUrl": "https://maps.app.goo.gl/8qveZyRoHWi8CqUo7",
 		"category": "junior",
 	},
 	{
@@ -70,6 +80,8 @@ export const events: Event[] = [
 		"eventThumbnail": "assets/event_logos/bhicks.jpg",
 		"format": "triathlon",
 		"location": "Wadebridge",
+		"address": "Wadebridge Leisure Centre, PL27 6BU",
+		"googleMapsUrl": "https://maps.app.goo.gl/5pKnZpqWXxMG6wFo8",
 		"category": "senior",
 	},
 	{
@@ -80,6 +92,8 @@ export const events: Event[] = [
 		"eventThumbnail": "assets/event_logos/bhicks.jpg",
 		"format": "scootathlon",
 		"location": "Wadebridge",
+		"address": "Wadebridge Leisure Centre, PL27 6BU",
+		"googleMapsUrl": "https://maps.app.goo.gl/5pKnZpqWXxMG6wFo8",
 		"category": "junior",
 	},
 	{
@@ -90,6 +104,8 @@ export const events: Event[] = [
 		"eventThumbnail": "assets/event_logos/kernowman.png",
 		"format": "triathlon",
 		"location": "Marazion",
+		"address": "Marazion Beach, TR17 0EQ",
+		"googleMapsUrl": "https://maps.app.goo.gl/hP4KRQozw8SvWxNk6",
 		"category": "senior",
 	},
 	{
@@ -100,6 +116,8 @@ export const events: Event[] = [
 		"eventThumbnail": "assets/event_logos/kernowman.png",
 		"format": "aquathlon",
 		"location": "Marazion",
+		"address": "Marazion Beach, TR17 0EQ",
+		"googleMapsUrl": "https://maps.app.goo.gl/hP4KRQozw8SvWxNk6",
 		"category": "junior",
 	},
 	{
@@ -110,6 +128,8 @@ export const events: Event[] = [
 		"eventThumbnail": "assets/event_logos/bhicks.jpg",
 		"format": "triathlon",
 		"location": "Tavistock",
+		"address": "Mount Kelly, Tavistock, PL19 0HZ",
+		"googleMapsUrl": "https://maps.app.goo.gl/kRWp9ubSQyePmztg9",
 		"category": "senior",
 	},
 	{
@@ -120,6 +140,8 @@ export const events: Event[] = [
 		"eventThumbnail": "assets/event_logos/bhicks.jpg",
 		"format": "triathlon & scootathlon",
 		"location": "Tavistock",
+		"address": "Mount Kelly, Tavistock, PL19 0HZ",
+		"googleMapsUrl": "https://maps.app.goo.gl/kRWp9ubSQyePmztg9",
 		"category": "junior",
 	},
 	{
@@ -130,6 +152,8 @@ export const events: Event[] = [
 		"eventThumbnail": "assets/event_logos/bhicks.jpg",
 		"format": "triathlon",
 		"location": "Bodmin",
+		"address": "Bodmin Leisure Centre, Bodmin, PL31 1DE",
+		"googleMapsUrl": "https://maps.app.goo.gl/S3PdXSXimR7BfWG98",
 		"category": "senior",
 	},
 	{
@@ -140,6 +164,8 @@ export const events: Event[] = [
 		"eventThumbnail": "assets/event_logos/bodmin-junior.png",
 		"format": "triathlon & scootathlon",
 		"location": "Bodmin",
+		"address": "Bodmin Leisure Centre, Bodmin, PL31 1DE",
+		"googleMapsUrl": "https://maps.app.goo.gl/S3PdXSXimR7BfWG98",
 		"category": "junior",
 	},
 	{
@@ -150,6 +176,8 @@ export const events: Event[] = [
 		"eventThumbnail": "assets/event_logos/bhicks.jpg",
 		"format": "triathlon",
 		"location": "Perranporth",
+		"address": "Perranporth Beach, TR6 0EY",
+		"googleMapsUrl": "https://maps.app.goo.gl/wGabRKYKVm5vY3Dy5",
 		"category": "senior",
 	},
 	{
@@ -160,6 +188,8 @@ export const events: Event[] = [
 		"eventThumbnail": "assets/event_logos/faltri-logo.jpg",
 		"format": "triathlon",
 		"location": "Falmouth",
+		"address": "Gyllyngvase Beach, Falmouth, TR11 4PA",
+		"googleMapsUrl": "https://maps.app.goo.gl/Hrv2uGTGvxb5tY658",
 		"category": "senior",
 	},
 	{
@@ -170,6 +200,8 @@ export const events: Event[] = [
 		"eventThumbnail": "assets/event_logos/faltri-kids-logo.jpg",
 		"format": "triathlon & scootathlon",
 		"location": "Falmouth",
+		"address": "Gyllyngvase Beach, Falmouth, TR11 4PA",
+		"googleMapsUrl": "https://maps.app.goo.gl/Hrv2uGTGvxb5tY658",
 		"category": "junior",
 	},
 	{
@@ -180,6 +212,8 @@ export const events: Event[] = [
 		"eventThumbnail": "assets/event_logos/bhicks.jpg",
 		"format": "triathlon",
 		"location": "Selsey",
+		"address": "Seal Bay Resort, Selsey, PO20 0HL",
+		"googleMapsUrl": "https://maps.app.goo.gl/CdcJ2N1nbYXPQV9a7",
 		"category": "senior",
 	},
 	{
@@ -190,6 +224,8 @@ export const events: Event[] = [
 		"eventThumbnail": "assets/event_logos/bhicks.jpg",
 		"format": "triathlon & scootathlon",
 		"location": "Selsey",
+		"address": "Seal Bay Resort, Selsey, PO20 0HL",
+		"googleMapsUrl": "https://maps.app.goo.gl/CdcJ2N1nbYXPQV9a7",
 		"category": "junior",
 	},
 ];
