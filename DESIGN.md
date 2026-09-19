@@ -36,7 +36,7 @@ Three typefaces, each with a fixed role. Loaded via `@import` at the top of `src
 | Data     | **IBM Plex Mono** | `--font-mono` | `font-mono` / `.data-mono` | Labels, stats, metadata, coordinates |
 
 **Typographic voice**
-- Headlines are uppercase, `font-900`, tightly tracked (`letter-spacing: -0.04em`), with compressed line-height (`leading-[0.82]`–`0.9`). The signature look is huge, blocky, and confident.
+- Headlines are uppercase, `font-900`, tightly tracked between letters (`letter-spacing: -0.04em` / `tracking-tighter2`), with compressed line-height (`leading-[0.82]`–`0.9`). Word spacing is opened (`word-spacing: 0.24em` / `[word-spacing:0.24em]`) so uppercase words stay distinct. The signature look is huge, blocky, and confident.
 - Body copy stays at 15px mobile / 18px desktop, `leading-[1.6]`, rendered on `--oxygen` at ~70–85% opacity for hierarchy.
 - Data labels are mono, uppercase, small (10–12px), widely letter-spaced (`tracking-[0.18em]`–`0.3em`), and prefixed with a slash — e.g. `/ 02 — Choose Your Race`.
 - Custom numeric `font-weight` utilities (400→900) are registered in `tailwind.config.js` for precise weight control.
@@ -52,7 +52,7 @@ Defined in `src/index.css` under `@layer components` / `base`. Reuse these inste
 | `surface-void`        | White base surface with near-black ink text.                    |
 | `velocity-line`      | Ultra-thin precision divider (`bg-[hsl(var(--oxygen)/0.12)]`). |
 | `data-mono`           | Mono data label: Plex Mono, tabular numerals, +0.04em tracking. |
-| `headline-overflow`   | Display headline clamp: `line-height: 0.82`, `letter-spacing: -0.04em`. |
+| `headline-overflow`   | Display headline clamp: `line-height: 0.82`, `letter-spacing: -0.04em`. Pair with `[word-spacing:0.24em]` on multi-word headlines. |
 | `chrono-hover`        | Crisp 120ms mechanical hover transition (color, border, transform, width). |
 | `chrono-transition`  | The same easing applied to state changes (used on the header). |
 | `animate-marquee`     | 28s linear infinite horizontal scroll for the ticker.           |
