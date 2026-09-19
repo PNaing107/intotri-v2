@@ -9,6 +9,10 @@ export function withBase(path = '/') {
 	return `${base}${path.startsWith('/') ? path : `/${path}`}`;
 }
 
+export function eventPageHref(category: string, slug: string) {
+	return withBase(`/events/${category}/${slug}`);
+}
+
 export function pathsMatch(pathname: string, href: string) {
 	const normalize = (value: string) => value.replace(/\/$/, '') || '/';
 	return normalize(pathname) === normalize(href);

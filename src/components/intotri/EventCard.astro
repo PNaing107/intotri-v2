@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import type { Event } from '../../data/events';
-import { withBase } from '../../lib/paths';
+import { eventPageHref } from '../../lib/paths';
 
 interface Props {
 	event: Event;
@@ -42,7 +42,7 @@ const monthYear = date.toLocaleDateString('en-GB', {
 
 const entriesOpen = status ? status === 'open' : date.getTime() >= Date.now();
 const tagLabel = tag ?? (event.category === 'junior' ? 'Junior' : 'Senior');
-const entryHref = href ?? withBase(`/events/${event.slug}`);
+const entryHref = href ?? eventPageHref(event.category, event.slug);
 const hairline = 'border-[hsl(var(--oxygen)/0.12)]';
 ---
 
