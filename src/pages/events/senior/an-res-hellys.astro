@@ -3,6 +3,7 @@ import Layout from '../../../layouts/Layout.astro';
 import KeyEventDetails from '../../../components/events/KeyEventDetails.astro';
 import EventOverviewTable from '../../../components/events/EventOverviewTable.astro';
 import StickyCta from '../../../components/events/StickyCta.astro';
+import VolunteersWanted from '../../../components/intotri/VolunteersWanted.astro';
 import { events } from '../../../data/events';
 
 const event = events.find(
@@ -35,10 +36,23 @@ if (!event) {
 							labelledBy="event-overview"
 							rows={[
 								{ label: 'Distance', value: '10 Miles' },
+								{ label: 'Surface', value: 'Multi Terrain'},
 								{ label: 'Registration Time', value: '08:15 am - 09:30 am' },
 								{ label: 'Race Start', value: '10:00 am' },
 							]}
 						/>
+						<br>
+						<p>An Res Hellys is a 10 mile multi-terrain run starting and finishing in Helston. The route takes runners through the picturesque National Trust Penrose Estate and is the fifth race in the Cornwall Grand Prix Road Racing Series</p>
+					</div>
+					<div class="velocity-line"></div>
+					<div class="py-10 md:py-12">
+						<h2
+							id="volunteers-wanted"
+							class="mb-8 font-archive text-4xl font-900 uppercase leading-[0.86] tracking-tighter2 [word-spacing:0.24em] text-oxygen md:mb-12 md:text-6xl"
+						>
+							Volunteers Wanted
+						</h2>
+						<VolunteersWanted />
 					</div>
 				</div>
 				<StickyCta
