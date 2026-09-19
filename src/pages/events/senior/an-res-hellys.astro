@@ -1,0 +1,18 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { events } from '../../../data/events';
+
+const event = events.find(
+	(item) => item.category === 'senior' && item.slug === 'an-res-hellys',
+);
+
+if (!event) {
+	throw new Error('Missing event data for An Res Hellys');
+}
+---
+
+<Layout title={`${event.name} | IntoTri`}>
+	<main>
+		<h1>{event.name}</h1>
+	</main>
+</Layout>
