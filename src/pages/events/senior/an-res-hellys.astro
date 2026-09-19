@@ -2,7 +2,6 @@
 import Layout from '../../../layouts/Layout.astro';
 import KeyEventDetails from '../../../components/events/KeyEventDetails.astro';
 import StickyCta from '../../../components/events/StickyCta.astro';
-import sprintIcon from '../../../assets/icons/sprint-icon.svg?raw';
 import { events } from '../../../data/events';
 
 const event = events.find(
@@ -30,16 +29,6 @@ if (!event) {
 						</h2>
 					</div>
 					<div class="velocity-line"></div>
-				</div>
-				<div class="mt-6 flex items-center gap-4">
-					<div
-						class="flex size-14 shrink-0 items-center justify-center bg-volt text-white [&_svg]:size-7"
-						aria-hidden="true"
-						set:html={sprintIcon}
-					/>
-					<p class="data-mono text-xl font-700 leading-none text-oxygen">
-						10 Miles / 16 Kilometers
-					</p>
 				</div>
 				<StickyCta
 					volunteerHref="https://docs.google.com/forms/d/e/1FAIpQLSdUBN5771X_Mv54I6fTjS3tRhSwIWqFqQ_2R3j3iDitgVeg_Q/viewform?usp=header"
