@@ -1,5 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import KeyEventDetails from '../../../components/events/KeyEventDetails.astro';
+import StickyCta from '../../../components/events/StickyCta.astro';
 import { events } from '../../../data/events';
 
 const event = events.find(
@@ -18,7 +20,13 @@ if (!event) {
 				<h1 class="font-archive text-4xl font-900 uppercase leading-[0.86] tracking-tighter2 [word-spacing:0.24em] text-oxygen md:text-6xl">
 					{event.name}
 				</h1>
+				<KeyEventDetails event={event} />
 			</div>
 		</section>
+		<StickyCta
+			volunteerHref="https://docs.google.com/forms/d/e/1FAIpQLSdUBN5771X_Mv54I6fTjS3tRhSwIWqFqQ_2R3j3iDitgVeg_Q/viewform?usp=header"
+			enterHref="https://www.sientries.co.uk/event.php?elid=Y&event_id=16736"
+			eventName={event.name}
+		/>
 	</main>
 </Layout>
