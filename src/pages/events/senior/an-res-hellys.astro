@@ -1,6 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import KeyEventDetails from '../../../components/events/KeyEventDetails.astro';
+import EventOverviewTable from '../../../components/events/EventOverviewTable.astro';
 import StickyCta from '../../../components/events/StickyCta.astro';
 import { events } from '../../../data/events';
 
@@ -24,11 +25,21 @@ if (!event) {
 				<div class="mt-10 md:mt-12">
 					<div class="velocity-line"></div>
 					<div class="py-10 md:py-12">
-						<h2 class="font-archive text-4xl font-900 uppercase leading-[0.86] tracking-tighter2 [word-spacing:0.24em] text-oxygen md:text-6xl">
+						<h2
+							id="event-overview"
+							class="font-archive text-4xl font-900 uppercase leading-[0.86] tracking-tighter2 [word-spacing:0.24em] text-oxygen md:text-6xl"
+						>
 							Event Overview
 						</h2>
+						<EventOverviewTable
+							labelledBy="event-overview"
+							rows={[
+								{ label: 'Distance', value: '10 Miles' },
+								{ label: 'Registration Time', value: '08:15 am - 09:30 am' },
+								{ label: 'Race Start', value: '10:00 am' },
+							]}
+						/>
 					</div>
-					<div class="velocity-line"></div>
 				</div>
 				<StickyCta
 					volunteerHref="https://docs.google.com/forms/d/e/1FAIpQLSdUBN5771X_Mv54I6fTjS3tRhSwIWqFqQ_2R3j3iDitgVeg_Q/viewform?usp=header"

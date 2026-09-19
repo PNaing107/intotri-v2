@@ -1,0 +1,39 @@
+---
+export type OverviewRow = {
+	label: string;
+	value: string;
+};
+
+interface Props {
+	rows: OverviewRow[];
+	labelledBy?: string;
+}
+
+const { rows, labelledBy } = Astro.props;
+const hairline = 'border-[hsl(var(--oxygen)/0.12)]';
+---
+
+<div class="mt-8 md:mt-10">
+	<table
+		class="w-full border-collapse text-left max-sm:block"
+		aria-labelledby={labelledBy}
+	>
+		<tbody class="max-sm:block">
+			{
+				rows.map((row) => (
+					<tr class:list={['border-b first:border-t max-sm:block max-sm:py-4 sm:chrono-hover sm:hover:bg-slatefriction', hairline]}>
+						<th
+							scope="row"
+							class="data-mono py-0 text-[10px] font-500 uppercase tracking-[0.22em] text-oxygen/70 max-sm:block sm:w-56 sm:py-5 sm:pr-8 md:text-[11px]"
+						>
+							{row.label}
+						</th>
+						<td class="py-0 font-archive text-sm font-700 uppercase tracking-ultra text-oxygen max-sm:mt-1 max-sm:block sm:py-5 md:text-base">
+							{row.value}
+						</td>
+					</tr>
+				))
+			}
+		</tbody>
+	</table>
+</div>
