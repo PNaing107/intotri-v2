@@ -31,10 +31,20 @@ const hairline = 'border-[hsl(var(--oxygen)/0.12)]';
 			]}
 			aria-hidden="true"
 		>
-			<span class="absolute h-px w-3 bg-current"></span>
-			<span
-				class="absolute h-3 w-px bg-current transition-transform duration-120 group-open:scale-y-0"
-			></span>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="18"
+				height="18"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				class="transition-transform duration-120 group-open:rotate-180"
+			>
+				<path d="m6 9 6 6 6-6"></path>
+			</svg>
 		</span>
 	</summary>
 	<div class="pb-8">
