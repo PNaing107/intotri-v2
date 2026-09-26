@@ -51,7 +51,8 @@ const buildSrcset = async (path: string, widths: number[], ratio: number) => {
 const tracks = [
 	{
 		key: 'mobile',
-		class: 'aspect-[4/5] md:hidden',
+		class: 'md:hidden',
+		frame: 'aspect-[4/5]',
 		sizes: '100vw',
 		slides: await Promise.all(
 			images.mobile.map((path) => buildSrcset(path, [480, 768, 1080], 5 / 4)),
@@ -59,7 +60,8 @@ const tracks = [
 	},
 	{
 		key: 'desktop',
-		class: 'hidden aspect-[16/9] md:block',
+		class: 'hidden md:block',
+		frame: 'aspect-[16/9]',
 		sizes: '(min-width: 1680px) 1600px, 100vw',
 		slides: await Promise.all(
 			images.desktop.map((path) => buildSrcset(path, [960, 1600, 2400], 9 / 16)),
@@ -73,59 +75,57 @@ const pad = (value: number) => String(value).padStart(2, '0');
 <div class="mt-10 md:mt-12" aria-roledescription="carousel" aria-label={alt}>
 	{
 		tracks.map((track) => (
-			<div
-				class:list={['relative overflow-hidden bg-slatefriction', track.class]}
-				data-slideshow
-				data-interval={interval}
-			>
-				{track.slides.map((slide, index) => (
-					<img
-						src={slide.src}
-						srcset={slide.srcset}
-						sizes={track.sizes}
-						alt={`${alt} — photo ${index + 1} of ${track.slides.length}`}
-						width={slide.width}
-						height={slide.height}
-						class="absolute inset-0 h-full w-full object-cover"
-						loading="lazy"
-						decoding="async"
-						data-slide
-						data-active={index === 0 ? '' : undefined}
-						aria-hidden={index === 0 ? undefined : 'true'}
-					/>
-				))}
+			<div class:list={[track.class]} data-slideshow data-interval={interval}>
+				<div class:list={['relative overflow-hidden bg-slatefriction', track.frame]}>
+					{track.slides.map((slide, index) => (
+						<img
+							src={slide.src}
+							srcset={slide.srcset}
+							sizes={track.sizes}
+							alt={`${alt} — photo ${index + 1} of ${track.slides.length}`}
+							width={slide.width}
+							height={slide.height}
+							class="absolute inset-0 h-full w-full object-cover"
+							loading="lazy"
+							decoding="async"
+							data-slide
+							data-active={index === 0 ? '' : undefined}
+							aria-hidden={index === 0 ? undefined : 'true'}
+						/>
+					))}
 
-				<div class="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-oxygen/40 to-transparent" />
+					{track.slides.length > 1 && (
+						<>
+							<div class="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-oxygen/40 to-transparent" />
+							<p class="data-mono absolute bottom-0 left-0 px-4 pb-4 text-[11px] font-500 uppercase tracking-[0.22em] text-white md:px-6 md:pb-6">
+								/ <span data-slide-index>01</span> — {pad(track.slides.length)}
+							</p>
+						</>
+					)}
+				</div>
 
 				{track.slides.length > 1 && (
-					<div class="absolute inset-x-0 bottom-0 flex items-center gap-3 px-4 pb-4 md:px-6 md:pb-6">
-						<p class="data-mono text-[11px] font-500 uppercase tracking-[0.22em] text-white">
-							/ <span data-slide-index>01</span> — {pad(track.slides.length)}
-						</p>
-						<div class="ml-auto flex gap-px">
-							<button
-								type="button"
-								class="chrono-hover flex h-10 w-10 items-center justify-center bg-void/85 text-oxygen backdrop-blur-md hover:bg-volt hover:text-white md:h-12 md:w-12"
-								aria-label="Previous photo"
-								data-slide-prev
-							>
-								<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-									<path d="M19 12H5" />
-									<path d="m12 19-7-7 7-7" />
-								</svg>
-							</button>
-							<button
-								type="button"
-								class="chrono-hover flex h-10 w-10 items-center justify-center bg-void/85 text-oxygen backdrop-blur-md hover:bg-volt hover:text-white md:h-12 md:w-12"
-								aria-label="Next photo"
-								data-slide-next
-							>
-								<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-									<path d="M5 12h14" />
-									<path d="m12 5 7 7-7 7" />
-								</svg>
-							</button>
-						</div>
+					<div class="mt-4 flex justify-center gap-2 md:mt-6">
+						<button
+							type="button"
+							class="chrono-hover flex h-10 w-10 items-center justify-center bg-volt text-white hover:bg-blu md:h-12 md:w-12"
+							aria-label="Previous photo"
+							data-slide-prev
+						>
+							<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+								<path d="m15 18-6-6 6-6" />
+							</svg>
+						</button>
+						<button
+							type="button"
+							class="chrono-hover flex h-10 w-10 items-center justify-center bg-volt text-white hover:bg-blu md:h-12 md:w-12"
+							aria-label="Next photo"
+							data-slide-next
+						>
+							<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+								<path d="m9 18 6-6-6-6" />
+							</svg>
+						</button>
 					</div>
 				)}
 			</div>
