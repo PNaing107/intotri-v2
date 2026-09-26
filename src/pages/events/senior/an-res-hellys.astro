@@ -1,6 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import KeyEventDetails from '../../../components/events/KeyEventDetails.astro';
+import SlideShow from '../../../components/events/SlideShow.astro';
 import EventOverviewTable from '../../../components/events/EventOverviewTable.astro';
 import StickyCta from '../../../components/events/StickyCta.astro';
 import VolunteersWanted from '../../../components/intotri/VolunteersWanted.astro';
@@ -25,6 +26,7 @@ if (!event) {
 					{event.name}
 				</h1>
 				<KeyEventDetails event={event} />
+				<SlideShow images={event.images} alt={event.name} />
 				<div class="mt-10 md:mt-12">
 					<div class="velocity-line"></div>
 					<div class="py-10 md:py-12">
