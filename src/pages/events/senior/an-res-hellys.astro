@@ -5,6 +5,7 @@ import EventOverviewTable from '../../../components/events/EventOverviewTable.as
 import StickyCta from '../../../components/events/StickyCta.astro';
 import VolunteersWanted from '../../../components/intotri/VolunteersWanted.astro';
 import Accordion from '../../../components/intotri/Accordion.astro';
+import TermsAndConditonsLink from '../../../components/events/TermsAndConditonsLink.astro';
 import { events } from '../../../data/events';
 
 const event = events.find(
@@ -140,7 +141,7 @@ if (!event) {
 							<a class="text-blu" href="https://www.uka.org.uk/wp-content/uploads/2026/03/UKA_RulesForCompetition_1st-April2026_V1.pdf" target="_blank">UKA Competition Rules</a>
 						</Accordion>
 						<Accordion title="Terms and Conditions">
-							<p>Course notes, distances, and anything else you want inside.</p>
+							<TermsAndConditonsLink />
 						</Accordion>
 					</div>
 				</div>
