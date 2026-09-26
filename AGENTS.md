@@ -8,7 +8,7 @@ astro dev --background
 
 Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
 
-Whenever you are asked to create a new UI component or update an existing compjent always refer to DESIGN.md at the root and follow the design guidelines.
+Whenever you are asked to create a new UI component or update an existing component always refer to DESIGN.md at the root and follow the design guidelines.
 
 ## Documentation
 
