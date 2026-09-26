@@ -4,6 +4,7 @@ import KeyEventDetails from '../../../components/events/KeyEventDetails.astro';
 import EventOverviewTable from '../../../components/events/EventOverviewTable.astro';
 import StickyCta from '../../../components/events/StickyCta.astro';
 import VolunteersWanted from '../../../components/intotri/VolunteersWanted.astro';
+import Accordion from '../../../components/intotri/Accordion.astro';
 import { events } from '../../../data/events';
 
 const event = events.find(
@@ -53,6 +54,79 @@ if (!event) {
 							Volunteers Wanted
 						</h2>
 						<VolunteersWanted />
+					</div>
+					<div class="py-10 md:py-12">
+						<h2
+							id="event-information"
+							class="mb-8 font-archive text-4xl font-900 uppercase leading-[0.86] tracking-tighter2 [word-spacing:0.24em] text-oxygen md:mb-12 md:text-6xl"
+						>
+							Event Information
+						</h2>
+						<Accordion title="Key Info">
+							<div class="space-y-6 font-body text-[15px] leading-[1.6] text-oxygen/85 md:text-lg">
+								<div class="space-y-3">
+									<h3 class="font-700 text-oxygen">Event Start: 10:00am</h3>
+									<p>An Res Hellys is a 10 mile multi-terrain run starting and finishing in Helston.</p>
+									<p>
+										The route takes runners through the picturesque National Trust Penrose Estate and is the fourth race in the Cornwall Grand Prix Road Racing Series.
+									</p>
+								</div>
+								<div class="space-y-3">
+									<h3 class="font-700 text-oxygen">Registration:</h3>
+									<p>
+										This will be from 8.15am – 9.30am at The Old Cattle Market. Pre-entries must collect their race number on the day. Race numbers must not be folded, cut or mutilated in any way.
+									</p>
+									<p>
+										There is no official baggage storage at the Race HQ. Bags can be left in the hall at the owner's risk.
+									</p>
+								</div>
+								<div class="space-y-1">
+									<h3 class="font-700 text-oxygen">Race Categories:</h3>
+									<p>First 3 Male and Female Finishers overall.</p>
+									<p>1st, 2nd &amp; 3rd Male and Female Under 35 and Vets: 35, 40, 45, 50, 55, 60, 65, 70 &amp; 75+</p>
+									<p>1st 3 Male Teams (6 to count) and 1st 3 Female Teams (6 to count)</p>
+									<p>It is anticipated that presentations will take place at the finish area by 12.30pm (dependent on weather).</p>
+									<p>First 400 entries will be guaranteed an event medal.</p>
+								</div>
+								<div class="space-y-3">
+									<h3 class="font-700 text-oxygen">Chip Timing</h3>
+									<p>
+										The race will be chip timed however all placings will be awarded using gun to chip time. Timing chips will be worn on the ankle and must be returned at the end of the race.
+									</p>
+								</div>
+								<div class="space-y-3">
+									<h3 class="font-700 text-oxygen">Changing &amp; Refreshments:</h3>
+									<p>
+										Toilets are available at the Race HQ. Food and drink will also be available to purchase at the Lakeside Café. There are no changing rooms or showers. Extra toilets are available at the back of the Lakeside Café.
+									</p>
+								</div>
+								<div class="space-y-3">
+									<h3 class="font-700 text-oxygen">MP3 Players:</h3>
+									<p>
+										As this race is part of the Cornwall Grand Prix series it is required to implement certain series race rules. Following a decision made by the Cornwall Road Running Group all MP3 players and personal audio devices are banned whilst running in this race for reasons of health &amp; safety, both yours and other competitors. When you wear such a device you are unable to hear other competitors, cars, bicycles or marshal's instructions. Marshals will be placed around the route who will be noting any individuals wearing personal audio devices. If you are found to be wearing such a device you will be disqualified from the race.
+									</p>
+									<p>
+										Please also note that dogs, wheelchairs, wheeled carriages and cycles are banned and competitors cannot be accompanied or followed, either on foot or by vehicular conveyance of any description.
+									</p>
+								</div>
+								<h3 class="font-700 text-oxygen">Race HQ – Old Cattle Market, Helston, TR13 0SR</h3>
+							</div>
+						</Accordion>
+						<Accordion title="Course Maps">
+							<p>Course notes, distances, and anything else you want inside.</p>
+						</Accordion>
+						<Accordion title="Parking">
+							<p>Course notes, distances, and anything else you want inside.</p>
+						</Accordion>
+						<Accordion title="Results">
+							<p>Course notes, distances, and anything else you want inside.</p>
+						</Accordion>
+						<Accordion title="Competiton Rules">
+							<p>Course notes, distances, and anything else you want inside.</p>
+						</Accordion>
+						<Accordion title="Terms and Conditions">
+							<p>Course notes, distances, and anything else you want inside.</p>
+						</Accordion>
 					</div>
 				</div>
 				<StickyCta
