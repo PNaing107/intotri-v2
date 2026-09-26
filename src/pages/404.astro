@@ -1,0 +1,51 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { withBase } from '../lib/paths';
+---
+
+<Layout title="Page not found | IntoTri">
+	<main>
+		<section class="surface-void px-5 pb-20 pt-28 md:px-10 md:pb-28 md:pt-36">
+			<div class="mx-auto max-w-[1600px]">
+				<div class="velocity-line"></div>
+
+				<div class="py-10 md:py-12">
+					<p class="data-mono mb-4 text-[10px] font-500 uppercase tracking-[0.22em] text-oxygen/70 md:text-[11px]">
+						/ 404 — Not Found
+					</p>
+					<h1 class="headline-overflow font-archive text-6xl font-900 uppercase tracking-tighter2 text-oxygen md:text-8xl">
+						404
+					</h1>
+					<p class="mt-6 max-w-2xl font-body text-[15px] leading-[1.6] text-oxygen/80 md:mt-8 md:text-lg">
+						This address has no page on the site. Head back to the start line and pick up the route from there.
+					</p>
+					<a
+						href={withBase('/')}
+						class="group chrono-hover mt-8 inline-flex items-center gap-2 bg-volt px-4 py-3 font-archive text-xs font-700 uppercase tracking-[0.18em] text-white hover:bg-volt/90 md:mt-10 md:px-5"
+						data-cursor="target"
+					>
+						Back to home
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="14"
+							height="14"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							class="shrink-0 transition-transform duration-120 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+							aria-hidden="true"
+						>
+							<path d="M7 7h10v10"></path>
+							<path d="M7 17 17 7"></path>
+						</svg>
+					</a>
+				</div>
+
+				<div class="velocity-line"></div>
+			</div>
+		</section>
+	</main>
+</Layout>
