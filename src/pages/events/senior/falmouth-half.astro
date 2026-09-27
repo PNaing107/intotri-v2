@@ -1,0 +1,163 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import KeyEventDetails from '../../../components/events/KeyEventDetails.astro';
+import SlideShow from '../../../components/events/SlideShow.astro';
+import EventOverviewTable from '../../../components/events/EventOverviewTable.astro';
+import StickyCta from '../../../components/events/StickyCta.astro';
+import VolunteersWanted from '../../../components/intotri/VolunteersWanted.astro';
+import Accordion from '../../../components/intotri/Accordion.astro';
+import TermsAndConditonsLink from '../../../components/events/TermsAndConditonsLink.astro';
+import { events } from '../../../data/events';
+
+const event = events.find(
+	(item) => item.category === 'senior' && item.slug === 'falmouth-half',
+);
+
+if (!event) {
+	throw new Error('Missing event data for Falmouth Half');
+}
+---
+
+<Layout title={`${event.name} | IntoTri`}>
+	<main>
+		<section class="surface-void px-5 pb-20 pt-28 md:px-10 md:pb-28 md:pt-36">
+			<div class="mx-auto max-w-[1600px]">
+				<h1 class="font-archive text-4xl font-900 uppercase leading-[0.86] tracking-tighter2 [word-spacing:0.24em] text-oxygen md:text-6xl">
+					{event.name}
+				</h1>
+				<KeyEventDetails event={event} />
+				<SlideShow images={event.images} alt={event.name} />
+				<div class="mt-10 md:mt-12">
+					<div class="velocity-line"></div>
+					<div class="py-10 md:py-12">
+						<h2
+							id="event-overview"
+							class="font-archive text-4xl font-900 uppercase leading-[0.86] tracking-tighter2 [word-spacing:0.24em] text-oxygen md:text-6xl"
+						>
+							Event Overview
+						</h2>
+						<EventOverviewTable
+							labelledBy="event-overview"
+							rows={[
+								{ label: 'Distance', value: '13.1 Miles' },
+								{ label: 'Surface', value: 'Road'},
+								{ label: 'Registration Time', value: '08:00 am - 09:15 am' },
+								{ label: 'Race Start', value: '10:00 am' },
+							]}
+						/>
+						<br>
+						<p>Run Falmouth is a half marathon distance event based in Falmouth and the nearby village of Mawnan Smith. Taking in views of Gyllyngvase, Swanpool and Maenporth beaches, for one of the most scenic races in the county! It is the fifth race in the Cornwall Grand Prix Road Racing Series.</p>
+					</div>
+					<div class="velocity-line"></div>
+					<div class="py-10 md:py-12">
+						<h2
+							id="volunteers-wanted"
+							class="mb-8 font-archive text-4xl font-900 uppercase leading-[0.86] tracking-tighter2 [word-spacing:0.24em] text-oxygen md:mb-12 md:text-6xl"
+						>
+							Volunteers Wanted
+						</h2>
+						<VolunteersWanted />
+					</div>
+					<div class="py-10 md:py-12">
+						<h2
+							id="event-information"
+							class="mb-8 font-archive text-4xl font-900 uppercase leading-[0.86] tracking-tighter2 [word-spacing:0.24em] text-oxygen md:mb-12 md:text-6xl"
+						>
+							Event Information
+						</h2>
+						<Accordion title="Key Info">
+							<div class="space-y-6 font-body text-[15px] leading-[1.6] text-oxygen/85 md:text-lg">
+								<div class="space-y-3">
+									<h3 class="font-700 text-oxygen">Event Start: 10:00am</h3>
+								</div>
+								<div class="space-y-3">
+									<h3 class="font-700 text-oxygen">Registration:</h3>
+									<p>
+										This will be from 8.00am – 9.30am at The Princess Pavilion, Falmouth. Entrants must collect their race number on the day. Race numbers must not be folded, cut or mutilated in any way. THERE WILL BE NO ON THE DAY ENTRIES!
+									</p>
+									<p>
+										There is no official baggage storage at the Race HQ. Bags can be left at the Pavilion at the owner's risk.
+									</p>
+									<p>The race is limited to 750 places. Online registration will close at midday on Wednesday 10th March 2027, or when the race is at capacity. This event has been a sell out for the last 3 years, so we advise people to register well in advance to avoid missing out!</p>
+								</div>
+								<div class="space-y-1">
+									<h3 class="font-700 text-oxygen">Race Categories:</h3>
+									<p>First 3 Male and Female Finishers overall.</p>
+									<p>1st, 2nd &amp; 3rd Male and Female Under 35 and Vets: 35, 40, 45, 50, 55, 60, 65, 70 &amp; 75+</p>
+									<p>1st 3 Male Teams (6 to count) and 1st 3 Female Teams (6 to count)</p>
+									<p>It is anticipated that presentations will take place at the finish area by 12.30pm (dependent on weather).</p>
+									<p>First 400 entries will be guaranteed an event medal.</p>
+								</div>
+								<div class="space-y-3">
+									<h3 class="font-700 text-oxygen">Chip Timing</h3>
+									<p>
+										The race will be chip timed however all placings will be awarded using gun to chip time. Timing chips will be worn on the ankle and must be returned at the end of the race.
+									</p>
+								</div>
+								<div class="space-y-3">
+									<h3 class="font-700 text-oxygen">Changing &amp; Refreshments:</h3>
+									<p>
+										Toilets are available at the Race HQ. Food and drink will also be available to purchase at the nearby Gylly Beach Café and Castle Beach Café. There are no changing rooms or showers.
+									</p>
+								</div>
+								<div class="space-y-3">
+									<h3 class="font-700 text-oxygen">MP3 Players:</h3>
+									<p>
+										As this race is part of the Cornwall Grand Prix series it is required to implement certain series race rules. Following a decision made by the Cornwall Road Running Group all MP3 players and personal audio devices are banned whilst running in this race for reasons of health &amp; safety, both yours and other competitors. When you wear such a device you are unable to hear other competitors, cars, bicycles or marshal's instructions. Marshals will be placed around the route who will be noting any individuals wearing personal audio devices. If you are found to be wearing such a device you will be disqualified from the race.
+									</p>
+									<p>
+										Please also note that dogs, wheelchairs, wheeled carriages and cycles are banned and competitors cannot be accompanied or followed, either on foot or by vehicular conveyance of any description.
+									</p>
+								</div>
+								<h3 class="font-700 text-oxygen">Race HQ – Princess Pavilion, 41 Melvill Road, Falmouth TR11 4AR</h3>
+							</div>
+						</Accordion>
+						<Accordion title="Course Maps">
+							<div class="space-y-4 font-body text-[15px] leading-[1.6] text-oxygen md:text-lg">
+								<h3 class="font-700">Run Falmouth - 13.1 Mile Run (1 Loop)</h3>
+								<iframe
+									class="h-[480px] w-full border border-[hsl(var(--oxygen)/0.12)] md:h-[560px]"
+									src="https://www.plotaroute.com/embedmap/3167071?units=km"
+									title="Run Falmouth - 13.1 Mile Run (1 Loop)"
+									loading="lazy"
+									allowfullscreen
+								></iframe>
+								<a class="text-blu" href="https://www.plotaroute.com/route/3167071" target="_blank" rel="noopener"> View route map for An Res Hellys- 10 Mile Run Race on plotaroute.com</a>
+							</div>
+						</Accordion>
+						<Accordion title="Parking">
+							<p>Parking will be limited so please car share where possible.</p><br>
+							<p>There is pay and display parking available by Gylly Beach and at the Dell and Maritime Car Parks, which are both about a 10 minute walk from Race HQ.</p><br>
+							<p>There is also some on road parking in the housing estates near Gylly Beach Cafe, please park considerately. Please DO NOT park on Cliff Road, as you will be stuck inside of the road closure and be in the way of the race. Car share where possible.</p>
+						</Accordion>
+						<Accordion title="Fundraising - Cornwall Hospice Care">
+							<p>
+								Run Falmouth is linking up with Cornwall Hospice Care as a charity partner for the race. There is a just giving link available below, if you would like to raise funds for your Half Marathon effort. 
+								This along with the donation of £2 from every entry fee will directly fund the care of people in your community living with a terminal illness. 
+								Sign up today and help to make a difference.
+							</p>
+							<p>You can set up a JustGiving page to fundraise your running efforts via the link here: <a class="text-blu" href="https://www.justgiving.com/charity/cornwallhospice" target="_blank">https://www.justgiving.com/charity/cornwallhospice</a></p>
+							<p>If using Gift Aid, 100% of donations go directly to Cornwall hospice.</p>
+						</Accordion>
+						<Accordion title="Results">
+							<p>Race results will be announced back at Race HQ in the Princess Pavillion and the prize givings are anticipated to begin at 12:30pm.</p>
+							<p>They will also be available 24 hours after the event on the resukts tab on <a class="text-blu" href="https://cornwallrunning.co.uk/" target="_blank">https://cornwallrunning.co.uk/</a></p>
+						</Accordion>
+						<Accordion title="Competiton Rules">
+							<p>You can find the full UK Athletics Competition Rules by clicking on the link below:</p>
+							<a class="text-blu" href="https://www.uka.org.uk/wp-content/uploads/2026/03/UKA_RulesForCompetition_1st-April2026_V1.pdf" target="_blank">UKA Competition Rules</a>
+						</Accordion>
+						<Accordion title="Terms and Conditions">
+							<TermsAndConditonsLink />
+						</Accordion>
+					</div>
+				</div>
+				<StickyCta
+					volunteerHref="https://docs.google.com/forms/d/e/1FAIpQLSdUBN5771X_Mv54I6fTjS3tRhSwIWqFqQ_2R3j3iDitgVeg_Q/viewform?usp=header"
+					enterHref="https://www.sientries.co.uk/event.php?elid=Y&event_id=16736"
+					eventName={event.name}
+				/>
+			</div>
+		</section>
+	</main>
+</Layout>
