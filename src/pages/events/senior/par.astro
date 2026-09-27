@@ -1,0 +1,141 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import KeyEventDetails from '../../../components/events/KeyEventDetails.astro';
+import SlideShow from '../../../components/events/SlideShow.astro';
+import EventOverviewTable from '../../../components/events/EventOverviewTable.astro';
+import StickyCta from '../../../components/events/StickyCta.astro';
+import VolunteersWanted from '../../../components/intotri/VolunteersWanted.astro';
+import Accordion from '../../../components/intotri/Accordion.astro';
+import TermsAndConditonsLink from '../../../components/events/TermsAndConditonsLink.astro';
+import { events } from '../../../data/events';
+import { withBase } from '../../../lib/paths.ts';
+
+const event = events.find(
+	(item) => item.category === 'senior' && item.slug === 'par',
+);
+
+if (!event) {
+	throw new Error('Missing senior event data for Par');
+}
+
+const juniorEvent = events.find(
+	(item) => item.category === 'junior' && item.slug === 'par',
+);
+
+if (!juniorEvent) {
+	throw new Error('Missing junior event data for Par');
+}
+
+const juniorUrl = withBase(`/events/junior/${juniorEvent.slug}`);
+---
+
+<Layout title={`${event.name} | IntoTri`}>
+	<main>
+		<section class="surface-void px-5 pb-20 pt-28 md:px-10 md:pb-28 md:pt-36">
+			<div class="mx-auto max-w-[1600px]">
+				<h1 class="font-archive text-4xl font-900 uppercase leading-[0.86] tracking-tighter2 [word-spacing:0.24em] text-oxygen md:text-6xl">
+					{event.name}
+				</h1>
+				<KeyEventDetails event={event} />
+				<SlideShow images={event.images} alt={event.name} />
+				<div class="mt-10 md:mt-12">
+					<div class="velocity-line"></div>
+					<div class="py-10 md:py-12">
+						<h2
+							id="event-overview"
+							class="font-archive text-4xl font-900 uppercase leading-[0.86] tracking-tighter2 [word-spacing:0.24em] text-oxygen md:text-6xl"
+						>
+							Event Overview
+						</h2>
+						<EventOverviewTable
+							labelledBy="event-overview"
+							rows={[
+								{ label: 'Big Hare (Sprint)', value: '5Km run | 20Km bike | 2.5Km run' },
+								{ label: 'Little Hare (Super Sprint)', value: '2.5Km run | 10Km bike | 2.5Km run'},
+								{ label: 'Race Start', value: '09:00 am Big Hare\n09:30 am Little Hare & Youth (15-16 year old)' },
+								{ label: 'Cornish Tri Series Points', value: 'Max 100' },
+							]}
+						/>
+						<br>
+						<p>A smooth, 5k mostly closed road circuit with a spectator friendly feel – Par Duathlon (run - bike - run) is a treat whether you are a hare or a tortoise.</p>
+						<p>
+							A spectator friendly event for family and friends to enjoy. A run course on and around Par Athletics Track is visible to all. 
+							With access to the bike course only being a short 400m walk over to the closed road out and back loop where supporters can cheer for their favourites on multiple laps.
+						</p>
+						<p>
+							After spending the morning cheering on the adults, sign up for the <a class="text-blu" href={juniorUrl}">Junior Event</a> and let the younger ones take their turn! Making it a great day of racing for all the family.
+						</p>
+					</div>
+					<div class="py-10 md:py-12">
+						<h2
+							id="event-information"
+							class="mb-8 font-archive text-4xl font-900 uppercase leading-[0.86] tracking-tighter2 [word-spacing:0.24em] text-oxygen md:mb-12 md:text-6xl"
+						>
+							Event Information
+						</h2>
+						<Accordion title="Key Info">
+							<div class="space-y-6 font-body text-[15px] leading-[1.6] text-oxygen/85 md:text-lg">
+								<div class="space-y-3">
+									<h3 class="font-700 text-oxygen">Event Start: 09:00am</h3>
+								</div>
+								<p>Full details of the event can be found in the Event Pack by follow the link below. From the Thursday before the race the event pack will also show individual start and registration times as well as your bike racking slot.</p>
+								<p>These details will also be included in the Welcome email that all participants will recieve before race day.</p>
+								<a
+									class="chrono-hover inline-flex w-fit items-center bg-volt px-4 py-3 font-archive text-xs font-700 uppercase tracking-[0.18em] text-white hover:bg-volt/90 md:px-5"
+									href="https://form.jotform.com/220712671818355"
+									target="_blank"
+									rel="noopener noreferrer"
+									data-cursor="target"
+								>Event Pack</a>
+								<h3 class="font-700 text-oxygen">Par Atheltics Track, Par, PL24 2PB</h3>
+							</div>
+						</Accordion>
+						<Accordion title="Course Maps">
+							<div class="space-y-4 font-body text-[15px] leading-[1.6] text-oxygen md:text-lg">
+								<h3 class="font-700">Run Falmouth - 13.1 Mile Run (1 Loop)</h3>
+								<iframe
+									class="h-[480px] w-full border border-[hsl(var(--oxygen)/0.12)] md:h-[560px]"
+									src="https://www.plotaroute.com/embedmap/3167071?units=km"
+									title="Run Falmouth - 13.1 Mile Run (1 Loop)"
+									loading="lazy"
+									allowfullscreen
+								></iframe>
+								<a class="text-blu" href="https://www.plotaroute.com/route/3167071" target="_blank" rel="noopener"> View route map for An Res Hellys- 10 Mile Run Race on plotaroute.com</a>
+							</div>
+						</Accordion>
+						<Accordion title="Parking">
+							<p>Parking will be limited so please car share where possible.</p><br>
+							<p>There is pay and display parking available by Gylly Beach and at the Dell and Maritime Car Parks, which are both about a 10 minute walk from Race HQ.</p><br>
+							<p>There is also some on road parking in the housing estates near Gylly Beach Cafe, please park considerately. Please DO NOT park on Cliff Road, as you will be stuck inside of the road closure and be in the way of the race. Car share where possible.</p>
+						</Accordion>
+						<Accordion title="Fundraising - Cornwall Hospice Care">
+							<p>
+								Run Falmouth is linking up with Cornwall Hospice Care as a charity partner for the race. There is a just giving link available below, if you would like to raise funds for your Half Marathon effort. 
+								This along with the donation of £2 from every entry fee will directly fund the care of people in your community living with a terminal illness. 
+								Sign up today and help to make a difference.
+							</p>
+							<p>You can set up a JustGiving page to fundraise your running efforts via the link here: <a class="text-blu" href="https://www.justgiving.com/charity/cornwallhospice" target="_blank">https://www.justgiving.com/charity/cornwallhospice</a></p>
+							<p>If using Gift Aid, 100% of donations go directly to Cornwall hospice.</p>
+						</Accordion>
+						<Accordion title="Results">
+							<p>Race results will be announced back at Race HQ in the Princess Pavillion and the prize givings are anticipated to begin at 12:30pm.</p>
+							<p>They will also be available 24 hours after the event on the resukts tab on <a class="text-blu" href="https://cornwallrunning.co.uk/" target="_blank">https://cornwallrunning.co.uk/</a></p>
+						</Accordion>
+						<Accordion title="Competiton Rules">
+							<p>You can find the full UK Athletics Competition Rules by clicking on the link below:</p>
+							<a class="text-blu" href="https://www.uka.org.uk/wp-content/uploads/2026/03/UKA_RulesForCompetition_1st-April2026_V1.pdf" target="_blank">UKA Competition Rules</a>
+						</Accordion>
+						<Accordion title="Terms and Conditions">
+							<TermsAndConditonsLink />
+						</Accordion>
+					</div>
+				</div>
+				<StickyCta
+					volunteerHref="https://docs.google.com/forms/d/e/1FAIpQLSdUBN5771X_Mv54I6fTjS3tRhSwIWqFqQ_2R3j3iDitgVeg_Q/viewform?usp=header"
+					enterHref="https://www.sientries.co.uk/event.php?elid=Y&event_id=16736"
+					eventName={event.name}
+				/>
+			</div>
+		</section>
+	</main>
+</Layout>
