@@ -7,6 +7,7 @@ import StickyCta from '../../../components/events/StickyCta.astro';
 import VolunteersWanted from '../../../components/intotri/VolunteersWanted.astro';
 import Accordion from '../../../components/intotri/Accordion.astro';
 import TermsAndConditonsLink from '../../../components/events/TermsAndConditonsLink.astro';
+import Volunteering from '../../../components/events/Volunteering.astro';
 import { events } from '../../../data/events';
 import { withBase } from '../../../lib/paths.ts';
 
@@ -69,7 +70,7 @@ const juniorUrl = withBase(`/events/junior/${juniorEvent.slug}`);
 							<h3 class="font-700 text-oxygen text-lg">Get A Discount</h3>
 							<p><strong>50% OFF</strong> when you bring a friend or family member to cheer you on and volunteer with us.</p>
 							<p><strong>Free Entry</strong> when you volunteer yourself. Bag a free entry for another Cornish Tri event!</p>
-							<p>Checkout the Volunteer Zone below to sign up!</p>
+							<p>Checkout the Volunteer section below for more details and use the Volunteer button to sign up.</p>
 						</div>
 					</div>
 					<div class="py-10 md:py-12">
@@ -98,38 +99,44 @@ const juniorUrl = withBase(`/events/junior/${juniorEvent.slug}`);
 						</Accordion>
 						<Accordion title="Course Maps">
 							<div class="space-y-4 font-body text-[15px] leading-[1.6] text-oxygen md:text-lg">
-								<h3 class="font-700">Run Falmouth - 13.1 Mile Run (1 Loop)</h3>
+								<h3 class="font-700">Bike Course: 5k closed road circuit (plus open road link). Little Hare (1x laps), Big Hare (3x laps)</h3>
 								<iframe
 									class="h-[480px] w-full border border-[hsl(var(--oxygen)/0.12)] md:h-[560px]"
-									src="https://www.plotaroute.com/embedmap/3167071?units=km"
-									title="Run Falmouth - 13.1 Mile Run (1 Loop)"
+									src="https://www.plotaroute.com/embedmap/2497878?units=km"
+									title="Par Duathlon Bike Lap"
 									loading="lazy"
 									allowfullscreen
 								></iframe>
-								<a class="text-blu" href="https://www.plotaroute.com/route/3167071" target="_blank" rel="noopener"> View route map for An Res Hellys- 10 Mile Run Race on plotaroute.com</a>
+								<a class="text-blu" href="https://www.plotaroute.com/route/2497878" target="_blank" rel="noopener">View bike route map on plotaroute.com</a>
+							</div>
+							<div class="space-y-4 font-body text-[15px] leading-[1.6] text-oxygen md:text-lg">
+								<h3 class="font-700">Run Route: 2.4k loop around Par Athletics Track grounds. Big Hare (2x + 1x laps), Little Hare (1x + 1x laps)</h3>
+								<iframe
+									class="h-[480px] w-full border border-[hsl(var(--oxygen)/0.12)] md:h-[560px]"
+									src="https://www.plotaroute.com/embedmap/2497890?units=km"
+									title="Par Run Lap"
+									loading="lazy"
+									allowfullscreen
+								></iframe>
+								<a class="text-blu" href="https://www.plotaroute.com/route/2497890" target="_blank" rel="noopener">View run route map on plotaroute.com</a>
 							</div>
 						</Accordion>
 						<Accordion title="Parking">
-							<p>Parking will be limited so please car share where possible.</p><br>
-							<p>There is pay and display parking available by Gylly Beach and at the Dell and Maritime Car Parks, which are both about a 10 minute walk from Race HQ.</p><br>
-							<p>There is also some on road parking in the housing estates near Gylly Beach Cafe, please park considerately. Please DO NOT park on Cliff Road, as you will be stuck inside of the road closure and be in the way of the race. Car share where possible.</p>
-						</Accordion>
-						<Accordion title="Fundraising - Cornwall Hospice Care">
-							<p>
-								Run Falmouth is linking up with Cornwall Hospice Care as a charity partner for the race. There is a just giving link available below, if you would like to raise funds for your Half Marathon effort. 
-								This along with the donation of £2 from every entry fee will directly fund the care of people in your community living with a terminal illness. 
-								Sign up today and help to make a difference.
-							</p>
-							<p>You can set up a JustGiving page to fundraise your running efforts via the link here: <a class="text-blu" href="https://www.justgiving.com/charity/cornwallhospice" target="_blank">https://www.justgiving.com/charity/cornwallhospice</a></p>
-							<p>If using Gift Aid, 100% of donations go directly to Cornwall hospice.</p>
+							<p>There are plenty of parking spaces for this event at Par Beach</p>
 						</Accordion>
 						<Accordion title="Results">
-							<p>Race results will be announced back at Race HQ in the Princess Pavillion and the prize givings are anticipated to begin at 12:30pm.</p>
-							<p>They will also be available 24 hours after the event on the resukts tab on <a class="text-blu" href="https://cornwallrunning.co.uk/" target="_blank">https://cornwallrunning.co.uk/</a></p>
+							<p>Results will be available in the results section of this website 24 hours after the event: <a class="text-blu" href="https://intotri.com/results" target="_blank">https://intotri.com/results</a></p>
 						</Accordion>
-						<Accordion title="Competiton Rules">
-							<p>You can find the full UK Athletics Competition Rules by clicking on the link below:</p>
-							<a class="text-blu" href="https://www.uka.org.uk/wp-content/uploads/2026/03/UKA_RulesForCompetition_1st-April2026_V1.pdf" target="_blank">UKA Competition Rules</a>
+						<Accordion title="Prizes">
+							<p>All competitors will receive a medal on completion of their event.</p>
+							<p>Prizes will also be awarded for the top 3 Female and Open athletes in each Age Group.</p>
+						</Accordion>
+						<Accordion title="Volunteering">
+							<Volunteering />
+						</Accordion>
+						<Accordion title="Triathlon Competiton Rules">
+							<p>You can find the full British Triathlon Competition Rules by clicking on the link below:</p>
+							<a class="text-blu" href="https://www.britishtriathlon.org/competitionrules" target="_blank">British Triathlon Competition Rules</a>
 						</Accordion>
 						<Accordion title="Terms and Conditions">
 							<TermsAndConditonsLink />
