@@ -1,0 +1,22 @@
+---
+import { withBase } from '../../lib/paths.ts';
+
+const rankingUrl = withBase('/event/ranking-system');
+---
+<div class="space-y-6 font-body text-[15px] leading-[1.6] text-oxygen/85 md:text-lg">
+	<div class="space-y-3">
+		<h3 class="font-700 text-oxygen">Are you up for a challenge?</h3>
+		<p>Join likeminded multi-sport enthusiasts and compete for the overall series awards in your age group.</p>
+		<p><strong>BEST OF 4</strong> + <span class="font-bold text-volt">VOLUNTEER</span></p>
+	</div>
+	<div class="space-y-3">
+		<p>
+			The 2027 Cornish Tri Series consists of 7 scoring events. Age group winners (male & female) will be awarded 100 points for each of the scoring events - Points decrease by position, see 
+			<a class="text-blu" href={rankingUrl}> Ranking System</a>. The final standings will be obtained by adding the points gained in your 4 best results from the scoring events.
+		</p>
+		<p>
+			To qualify for the Overall Series Awards, athletes need to complete a minimum number of 4 events (any combination of events) <strong>AND VOLUNTEER</strong> themselves or bring a volunteer along to at least 1 event. 
+			While you can mix Sprint and Olympic distance entries to compete for the Sprint Series awards, you can't mix Sprint and Super Sprint entries as the latter have their own, beginner friendly, Super Sprint awards.
+		</p>
+	</div>
+</div>
