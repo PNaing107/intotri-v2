@@ -8,6 +8,7 @@ import VolunteersWanted from '../../../components/intotri/VolunteersWanted.astro
 import Accordion from '../../../components/intotri/Accordion.astro';
 import TermsAndConditonsLink from '../../../components/events/TermsAndConditonsLink.astro';
 import Volunteering from '../../../components/events/Volunteering.astro';
+import CornishTriSeries from '../../../components/events/CornishTriSeries.astro';
 import { events } from '../../../data/events';
 import { withBase } from '../../../lib/paths.ts';
 
@@ -133,6 +134,9 @@ const juniorUrl = withBase(`/events/junior/${juniorEvent.slug}`);
 						</Accordion>
 						<Accordion title="Volunteering">
 							<Volunteering />
+						</Accordion>
+						<Accordion title="Cornish Tri Series">
+							<CornishTriSeries />
 						</Accordion>
 						<Accordion title="Triathlon Competiton Rules">
 							<p>You can find the full British Triathlon Competition Rules by clicking on the link below:</p>
