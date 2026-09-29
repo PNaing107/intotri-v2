@@ -1,0 +1,171 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import KeyEventDetails from '../../../components/events/KeyEventDetails.astro';
+import SlideShow from '../../../components/events/SlideShow.astro';
+import EventOverviewTable from '../../../components/events/EventOverviewTable.astro';
+import StickyCta from '../../../components/events/StickyCta.astro';
+import VolunteersWanted from '../../../components/intotri/VolunteersWanted.astro';
+import Accordion from '../../../components/intotri/Accordion.astro';
+import TermsAndConditonsLink from '../../../components/events/TermsAndConditonsLink.astro';
+import Volunteering from '../../../components/events/Volunteering.astro';
+import CornishTriSeries from '../../../components/events/CornishTriSeries.astro';
+import { events } from '../../../data/events';
+import { withBase } from '../../../lib/paths.ts';
+
+const event = events.find(
+	(item) => item.category === 'senior' && item.slug === 'falmouth',
+);
+
+if (!event) {
+	throw new Error('Missing senior event data for Falmouth');
+}
+
+const juniorEvent = events.find(
+	(item) => item.category === 'junior' && item.slug === 'falmouth',
+);
+
+if (!juniorEvent) {
+	throw new Error('Missing junior event data for Falmouth');
+}
+
+const juniorUrl = withBase(`/events/junior/${juniorEvent.slug}`);
+---
+
+<Layout title={`${event.name} | IntoTri`}>
+	<main>
+		<section class="surface-void px-5 pb-20 pt-28 md:px-10 md:pb-28 md:pt-36">
+			<div class="mx-auto max-w-[1600px]">
+				<h1 class="font-archive text-4xl font-900 uppercase leading-[0.86] tracking-tighter2 [word-spacing:0.24em] text-oxygen md:text-6xl">
+					{event.name}
+				</h1>
+				<KeyEventDetails event={event} />
+				<SlideShow images={event.images} alt={event.name} />
+				<div class="mt-10 md:mt-12">
+					<div class="velocity-line"></div>
+					<div class="py-10 md:py-12">
+						<h2
+							id="event-overview"
+							class="font-archive text-4xl font-900 uppercase leading-[0.86] tracking-tighter2 [word-spacing:0.24em] text-oxygen md:text-6xl"
+						>
+							Event Overview
+						</h2>
+						<EventOverviewTable
+							labelledBy="event-overview"
+							rows={[
+								{ label: 'Big Seal (Sprint)', value: '750m Swim | 18Km bike | 4.8Km run' },
+								{ label: 'Little Seal (Super Sprint)', value: '400m Swim | 9.7Km bike | 2.4Km run'},
+								{ label: 'Race Start', value: '08:00 am' },
+								{ label: 'Cornish Tri Series Points', value: 'Max 100' },
+							]}
+						/>
+						<br>
+						<p>
+							Golden sand, turquoise water and panoramic views over the Lizard Peninsula from Henry VIII's Pendennis Castle - Falmouth Triathlon is a treat for all senses. 
+							Enjoy the calm waters of Cornwall's swimming hotspot, the blue flag rated Gyllyngvase Beach - perfect for beginners and those looking for a fast course! 
+							Once out of the water, hop on your bike and soak up the electric atmosphere with spectators lining the closed road section along Cliff Rd. 
+							Watch out for seals off-shore on the stunning coastal bike and run routes around Pendennis Point!
+						</p>
+						<p><strong>Feel the Buzz:</strong> An Australian exit after loop 1 of the swim will add to the excitement and give your supporters a chance to cheer you on.</p>
+						<p>
+							After spending the morning cheering on the adults, sign up for the <a class="text-blu" href={juniorUrl}">Junior Event</a> and let the younger ones take their turn! Making it a great day of racing for all the family.
+						</p><br>
+						<div class="border-2 border-volt p-5 md:p-6">
+							<h3 class="font-700 text-oxygen text-lg">Get A Discount</h3>
+							<p><strong>50% OFF</strong> when you bring a friend or family member to cheer you on and volunteer with us.</p>
+							<p><strong>Free Entry</strong> when you volunteer yourself. Bag a free entry for another Cornish Tri event!</p>
+							<p>Checkout the Volunteer section below for more details and use the Volunteer button to sign up.</p>
+						</div>
+					</div>
+					<div class="py-10 md:py-12">
+						<h2
+							id="event-information"
+							class="mb-8 font-archive text-4xl font-900 uppercase leading-[0.86] tracking-tighter2 [word-spacing:0.24em] text-oxygen md:mb-12 md:text-6xl"
+						>
+							Event Information
+						</h2>
+						<Accordion title="Key Info">
+							<div class="space-y-6 font-body text-[15px] leading-[1.6] text-oxygen/85 md:text-lg">
+								<div class="space-y-3">
+									<h3 class="font-700 text-oxygen">Event Start: 08:00am</h3>
+								</div>
+								<p>Full details of the event can be found in the Event Pack by following the link below. From the Thursday before the race the event pack will also show individual start and registration times as well as your bike racking slot.</p>
+								<p>These details will also be included in the Welcome email that all participants will recieve before race day.</p>
+								<a
+									class="chrono-hover inline-flex w-fit items-center bg-volt px-4 py-3 font-archive text-xs font-700 uppercase tracking-[0.18em] text-white hover:bg-volt/90 md:px-5"
+									href="https://form.jotform.com/230871450016347"
+									target="_blank"
+									rel="noopener noreferrer"
+									data-cursor="target"
+								>Event Pack</a>
+								<h3 class="font-700 text-oxygen">{event.address}</h3>
+							</div>
+						</Accordion>
+						<Accordion title="Course Maps">
+							<div class="space-y-4 font-body text-[15px] leading-[1.6] text-oxygen md:text-lg">
+								<h3 class="font-700">Bike Course: Big Seal 4 loops, Little Seal 2 loops</h3>
+								<iframe
+									class="h-[480px] w-full border border-[hsl(var(--oxygen)/0.12)] md:h-[560px]"
+									src="https://www.plotaroute.com/embedmap/737511?units=km"
+									title="Falmouth Triathlon Bike Lap"
+									loading="lazy"
+									allowfullscreen
+								></iframe>
+								<a class="text-blu" href="https://www.plotaroute.com/route/737511" target="_blank" rel="noopener">View bike route map on plotaroute.com</a>
+							</div>
+							<div class="space-y-4 font-body text-[15px] leading-[1.6] text-oxygen md:text-lg">
+								<h3 class="font-700">Run Course: Big Seal</h3>
+								<iframe
+									class="h-[480px] w-full border border-[hsl(var(--oxygen)/0.12)] md:h-[560px]"
+									src="https://www.plotaroute.com/embedmap/737601?units=km"
+									title="Falmouth Sprint Triathlon Run Lap"
+									loading="lazy"
+									allowfullscreen
+								></iframe>
+								<a class="text-blu" href="https://www.plotaroute.com/route/737601" target="_blank" rel="noopener">View run route map on plotaroute.com</a>
+							</div>
+							<div class="space-y-4 font-body text-[15px] leading-[1.6] text-oxygen md:text-lg">
+								<h3 class="font-700">Run Course: Little Seal</h3>
+								<iframe
+									class="h-[480px] w-full border border-[hsl(var(--oxygen)/0.12)] md:h-[560px]"
+									src="https://www.plotaroute.com/embedmap/737614?units=km"
+									title="Wadebridge Super Sprint Triathlon Run Lap"
+									loading="lazy"
+									allowfullscreen
+								></iframe>
+								<a class="text-blu" href="https://www.plotaroute.com/route/737614" target="_blank" rel="noopener">View run route map on plotaroute.com</a>
+							</div>
+						</Accordion>
+						<Accordion title="Parking">
+							<p>Please find detailed parking provisions for your wave in the event pack.</p>
+						</Accordion>
+						<Accordion title="Results">
+							<p>Results will be available in the results section of this website 24 hours after the event: <a class="text-blu" href="https://intotri.com/results" target="_blank">https://intotri.com/results</a></p>
+						</Accordion>
+						<Accordion title="Prizes">
+							<p>All competitors will receive a medal on completion of their event.</p>
+							<p>Prizes will also be awarded for the top 3 Female and Open athletes in each Age Group.</p>
+						</Accordion>
+						<Accordion title="Volunteering">
+							<Volunteering />
+						</Accordion>
+						<Accordion title="Cornish Tri Series">
+							<CornishTriSeries />
+						</Accordion>
+						<Accordion title="Triathlon Competiton Rules">
+							<p>You can find the full British Triathlon Competition Rules by clicking on the link below:</p>
+							<a class="text-blu" href="https://www.britishtriathlon.org/competitionrules" target="_blank">British Triathlon Competition Rules</a>
+						</Accordion>
+						<Accordion title="Terms and Conditions">
+							<TermsAndConditonsLink />
+						</Accordion>
+					</div>
+				</div>
+				<StickyCta
+					volunteerHref="https://docs.google.com/forms/d/e/1FAIpQLSdUBN5771X_Mv54I6fTjS3tRhSwIWqFqQ_2R3j3iDitgVeg_Q/viewform?usp=header"
+					enterHref="https://www.sientries.co.uk/event.php?elid=Y&event_id=16736"
+					eventName={event.name}
+				/>
+			</div>
+		</section>
+	</main>
+</Layout>
