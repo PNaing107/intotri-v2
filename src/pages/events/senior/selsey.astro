@@ -1,0 +1,209 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../../../layouts/Layout.astro';
+import coupleOnBeach from '../../../assets/couple_on_beach.jpg';
+import KeyEventDetails from '../../../components/events/KeyEventDetails.astro';
+import SlideShow from '../../../components/events/SlideShow.astro';
+import EventOverviewTable from '../../../components/events/EventOverviewTable.astro';
+import StickyCta from '../../../components/events/StickyCta.astro';
+import VolunteersWanted from '../../../components/intotri/VolunteersWanted.astro';
+import Accordion from '../../../components/intotri/Accordion.astro';
+import TermsAndConditonsLink from '../../../components/events/TermsAndConditonsLink.astro';
+import Volunteering from '../../../components/events/Volunteering.astro';
+import CornishTriSeries from '../../../components/events/CornishTriSeries.astro';
+import { events } from '../../../data/events';
+import { withBase } from '../../../lib/paths.ts';
+
+const event = events.find(
+	(item) => item.category === 'senior' && item.slug === 'selsey',
+);
+
+if (!event) {
+	throw new Error('Missing senior event data for Selsey');
+}
+
+const juniorEvent = events.find(
+	(item) => item.category === 'junior' && item.slug === 'selsey',
+);
+
+if (!juniorEvent) {
+	throw new Error('Missing junior event data for Selsey');
+}
+
+const juniorUrl = withBase(`/events/junior/${juniorEvent.slug}`);
+---
+
+<Layout title={`${event.name} | IntoTri`}>
+	<main>
+		<section class="surface-void px-5 pb-20 pt-28 md:px-10 md:pb-28 md:pt-36">
+			<div class="mx-auto max-w-[1600px]">
+				<h1 class="font-archive text-4xl font-900 uppercase leading-[0.86] tracking-tighter2 [word-spacing:0.24em] text-oxygen md:text-6xl">
+					{event.name}
+				</h1>
+				<KeyEventDetails event={event} />
+				<SlideShow images={event.images} alt={event.name} />
+				<div class="mt-10 md:mt-12">
+					<div class="velocity-line"></div>
+					<div class="py-10 md:py-12">
+						<h2
+							id="event-overview"
+							class="font-archive text-4xl font-900 uppercase leading-[0.86] tracking-tighter2 [word-spacing:0.24em] text-oxygen md:text-6xl"
+						>
+							Event Overview
+						</h2>
+						<EventOverviewTable
+							labelledBy="event-overview"
+							rows={[
+								{ label: 'Sprint', value: '750m Swim | 25Km bike | 5Km run' },
+								{ label: 'Super Sprint', value: '400m Swim | 10Km bike | 2.5Km run'},
+								{ label: 'Race Start', value: '08:00 am' },
+								{ label: 'Kit', value: 'Wetsuits are mandatory (shortie or full body)'}
+							]}
+						/>
+						<br>
+						<p>
+							Finish off your Triathlon season in style, with an event based at Seal Bay Resort, Selsey. With access to their private beach, an almost pan flat bike route, as well as a closed road run route around the resort. 
+							This event is suitable for Triathletes of all ages and abilities. Whether you’re trying to complete your first event, or are looking for a fast time, this is a perfect chance to finish your season in style. 
+							Bring your family and stay at Seal Bay Resort. We have an exclusive discount for entrants who want to stay on site for the race weekend. Why not roll out of bed, race and then relax with family and friends for the rest of the weekend?
+						</p>
+						<p><strong>Feel the Buzz:</strong> An Australian exit after loop 1 of the swim will add to the excitement and give your supporters a chance to cheer you on.</p>
+						<p>
+							After spending the morning cheering on the adults, sign up for the <a class="text-blu" href={juniorUrl}">Junior Event</a> and let the younger ones take their turn! Making it a great day of racing for all the family.
+						</p><br>
+						<div class="border-2 border-volt p-5 md:p-6">
+							<h3 class="font-700 text-oxygen text-lg">Get A Discount</h3>
+							<p><strong>50% OFF</strong> when you bring a friend or family member to cheer you on and volunteer with us.</p>
+							<p><strong>Free Entry</strong> when you volunteer yourself. Bag a free entry for another Cornish Tri event!</p>
+							<p>Checkout the Volunteer section below for more details and use the Volunteer button to sign up.</p>
+						</div>
+					</div>
+					<div class="py-10 md:py-12">
+						<h2
+							id="event-information"
+							class="mb-8 font-archive text-4xl font-900 uppercase leading-[0.86] tracking-tighter2 [word-spacing:0.24em] text-oxygen md:mb-12 md:text-6xl"
+						>
+							Event Information
+						</h2>
+						<Accordion title="Key Info">
+							<div class="space-y-6 font-body text-[15px] leading-[1.6] text-oxygen/85 md:text-lg">
+								<div class="space-y-3">
+									<h3 class="font-700 text-oxygen">Event Start: 08:00am</h3>
+								</div>
+								<p>Full details of the event can be found in the Event Pack by following the link below. From the Thursday before the race the event pack will also show individual start and registration times as well as your bike racking slot.</p>
+								<p>These details will also be included in the Welcome email that all participants will recieve before race day.</p>
+								<a
+									class="chrono-hover inline-flex w-fit items-center bg-volt px-4 py-3 font-archive text-xs font-700 uppercase tracking-[0.18em] text-white hover:bg-volt/90 md:px-5"
+									href="https://form.jotform.com/262505038354353"
+									target="_blank"
+									rel="noopener noreferrer"
+									data-cursor="target"
+								>Event Pack</a>
+								<h3 class="font-700 text-oxygen">{event.address}</h3>
+							</div>
+						</Accordion>
+						<Accordion title="Accomodation">
+							<figure class="mb-6 aspect-[16/9] overflow-hidden">
+								<Image
+									src={coupleOnBeach}
+									alt="A couple sitting together on the pebble beach at Seal Bay, looking out over the sea"
+									widths={[640, 960, 1280, 1600].filter((width) => width <= coupleOnBeach.width)}
+									sizes="(min-width: 768px) min(calc(100vw - 5rem), 1600px), calc(100vw - 2.5rem)"
+									class="h-full w-full object-cover"
+									loading="lazy"
+								/>
+							</figure>
+							<p>
+								Arrive, unwind and get race-ready at Seal Bay Resort, your perfect base for this event. 
+								Located right on the south coast in Selsey, West Sussex, a variety of self-catering accommodation offers everything you need before and after your race.
+							</p><br>
+							<p>
+								From caravans, luxury lodges and houses, there’s everything you need for your pre-race breakfast. 
+								With thrilling activities, award-winning entertainment and family-friendly dining, Seal Bay Resort has all the facilities to make it a memorable race weekend for all the family.
+							</p><br>
+							<p>
+								With Junior races on the Saturday and Senior races on the Sunday, why not make a long weekend of it? 
+								What better feeling is there than rolling out of bed straight onto the start line.
+							</p><br>
+							<strong>Participants can receive up to 10% off when booking their accommodation using the code TRIAT10</strong>
+							<p>Book your accommodation via the link here: <a class="text-blu" href="https://cove.co.uk/sealbayresort/" target="_blank">https://cove.co.uk/sealbayresort/</a></p>
+						</Accordion>
+						<Accordion title="Course Maps">
+							<div class="space-y-4 font-body text-[15px] leading-[1.6] text-oxygen md:text-lg">
+								<h3 class="font-700">Selsey Bike Course: Sprint</h3>
+								<iframe
+									class="h-[480px] w-full border border-[hsl(var(--oxygen)/0.12)] md:h-[560px]"
+									src="https://www.plotaroute.com/embedmap/3181423?units=km"
+									title="Selsey Sprint Triathlon Bike Lap"
+									loading="lazy"
+									allowfullscreen
+								></iframe>
+								<a class="text-blu" href="https://www.plotaroute.com/route/3181423" target="_blank" rel="noopener">View bike route map on plotaroute.com</a>
+							</div>
+							<div class="space-y-4 font-body text-[15px] leading-[1.6] text-oxygen md:text-lg">
+								<h3 class="font-700">Selsey Run Course: Sprint</h3>
+								<iframe
+									class="h-[480px] w-full border border-[hsl(var(--oxygen)/0.12)] md:h-[560px]"
+									src="https://www.plotaroute.com/embedmap/3154096?units=km"
+									title="Selsey Sprint Triathlon Run Lap"
+									loading="lazy"
+									allowfullscreen
+								></iframe>
+								<a class="text-blu" href="https://www.plotaroute.com/route/3154096" target="_blank" rel="noopener">View run route map on plotaroute.com</a>
+							</div>
+							<div class="space-y-4 font-body text-[15px] leading-[1.6] text-oxygen md:text-lg">
+								<h3 class="font-700">Selsey Bike Course: Super Sprint</h3>
+								<iframe
+									class="h-[480px] w-full border border-[hsl(var(--oxygen)/0.12)] md:h-[560px]"
+									src="https://www.plotaroute.com/embedmap/3159077?units=km"
+									title="Selsey Super Sprint Triathlon Bike Lap"
+									loading="lazy"
+									allowfullscreen
+								></iframe>
+								<a class="text-blu" href="https://www.plotaroute.com/route/3159077" target="_blank" rel="noopener">View bike route map on plotaroute.com</a>
+							</div>
+							<div class="space-y-4 font-body text-[15px] leading-[1.6] text-oxygen md:text-lg">
+								<h3 class="font-700">Selsey Run Course: Super Sprint</h3>
+								<iframe
+									class="h-[480px] w-full border border-[hsl(var(--oxygen)/0.12)] md:h-[560px]"
+									src="https://www.plotaroute.com/embedmap/3159067?units=km"
+									title="Selsey Super Sprint Triathlon Run Lap"
+									loading="lazy"
+									allowfullscreen
+								></iframe>
+								<a class="text-blu" href="https://www.plotaroute.com/route/3159067" target="_blank" rel="noopener">View run route map on plotaroute.com</a>
+							</div>
+						</Accordion>
+						<Accordion title="Parking">
+							<p>Please find detailed parking provisions for your wave in the event pack.</p>
+						</Accordion>
+						<Accordion title="Results">
+							<p>Results will be available in the results section of this website 24 hours after the event: <a class="text-blu" href="https://intotri.com/results" target="_blank">https://intotri.com/results</a></p>
+						</Accordion>
+						<Accordion title="Prizes">
+							<p>All competitors will receive a medal on completion of their event.</p>
+							<p>Prizes will also be awarded for the top 3 Female and Open athletes in each Age Group.</p>
+						</Accordion>
+						<Accordion title="Volunteering">
+							<Volunteering />
+						</Accordion>
+						<Accordion title="Cornish Tri Series">
+							<CornishTriSeries />
+						</Accordion>
+						<Accordion title="Triathlon Competiton Rules">
+							<p>You can find the full British Triathlon Competition Rules by clicking on the link below:</p>
+							<a class="text-blu" href="https://www.britishtriathlon.org/competitionrules" target="_blank">British Triathlon Competition Rules</a>
+						</Accordion>
+						<Accordion title="Terms and Conditions">
+							<TermsAndConditonsLink />
+						</Accordion>
+					</div>
+				</div>
+				<StickyCta
+					volunteerHref="https://docs.google.com/forms/d/e/1FAIpQLSdUBN5771X_Mv54I6fTjS3tRhSwIWqFqQ_2R3j3iDitgVeg_Q/viewform?usp=header"
+					enterHref="https://www.sientries.co.uk/event.php?elid=Y&event_id=16736"
+					eventName={event.name}
+				/>
+			</div>
+		</section>
+	</main>
+</Layout>
